@@ -1,0 +1,83 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1404\cocoasubrtf470
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 PSQL input of raw SQL - Marvin Benchmark Queries  
+\b pre config optimization
+\b0 \
+ \
+query 1 at utah [67186 rows]\
+\
+1 run - 16994.752 ms (17 s)\
+2 run - 945.023 ms (1 s)\
+3 run - 679.068 ms (.7 s)\
+4 run - 679.481 ms (.7 s)\
+5 run - 680.094 ms (.7 s)\
+\
+query 2 at utah [709 rows]\
+\
+1 - 285666.647 ms (285.67 s / ~4-5 min)\
+2 - 82263.795 ms (83 s)\
+3 - 31216.202 ms (31 s)\
+4 - 30913.070 ms\
+5 - 30991.976 ms\
+\
+query 3 at utah [3521163 rows]\
+\
+1 - 234723.263 ms (234 s / ~4 m)\
+2 - 35032.510 ms (35 s)\
+3 - 33708.596 ms (34 s)\
+4 - 34054.721 ms\
+5 - 34020.942 ms\
+\
+query 4 at utah [61156 rows] \
+\
+1 - 713.455 ms\
+2 - 695.414 ms\
+3 - 716.167 ms\
+4 - 716.835 ms\
+5 - 716.907 ms\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 PSQL input of raw SQL - Marvin Benchmark Queries  
+\b post config optimization and parallel queries
+\b0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+Query 1\
+1 - 1042.864 ms\
+2 - 517.769 ms\
+3 - 515.842 ms\
+4 - 514.638 ms\
+5 - 515.891 ms\
+\
+Query 2\
+1 - 31123.694 ms\
+2 - 11120.931 ms\
+3 - 8902.770 ms\
+4 - 8560.824 ms\
+5 - 8568.036 ms\
+\
+Query 3\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 1 - 81318.997 ms (81 s)\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 2 - 25611.529 ms (25 s)\
+3 - 25666.804 ms (25 s)\
+4 - 25714.175 ms\
+5 - 25444.406 ms\
+\
+Query 4\
+1 - 588.909 ms\
+2 - 566.810 ms \
+3 - 572.552 ms\
+4 - 572.218 ms\
+5 - 569.899 ms\
+\
+\
+\
+\
+}

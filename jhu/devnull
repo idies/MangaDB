@@ -1,0 +1,136 @@
+SET
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                 QUERY PLAN                                                                                  |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Nested Loop  (cost=3131.77..248900.26 rows=10086 width=64) (actual time=65.719..413.921 rows=67186 loops=1)                                                                 |
+|   ->  Seq Scan on pipeline_info dapalias  (cost=0.00..1.18 rows=1 width=4) (actual time=0.016..0.016 rows=1 loops=1)                                                        |
+|         Filter: (pk = 26)                                                                                                                                                   |
+|         Rows Removed by Filter: 13                                                                                                                                          |
+|   ->  Nested Loop  (cost=3131.77..248773.01 rows=10086 width=36) (actual time=65.646..346.081 rows=67186 loops=1)                                                           |
+|         ->  Seq Scan on pipeline_info drpalias  (cost=0.00..1.18 rows=1 width=4) (actual time=0.005..0.008 rows=1 loops=1)                                                  |
+|               Filter: (pk = 25)                                                                                                                                             |
+|               Rows Removed by Filter: 13                                                                                                                                    |
+|         ->  Hash Join  (cost=3131.77..248670.98 rows=10086 width=40) (actual time=65.636..336.120 rows=67186 loops=1)                                                       |
+|               Hash Cond: (cube.ifudesign_pk = ifudesign.pk)                                                                                                                 |
+|               ->  Hash Join  (cost=3130.12..248530.64 rows=10086 width=40) (actual time=65.560..315.458 rows=67186 loops=1)                                                 |
+|                     Hash Cond: (cleanspaxelprop5.file_pk = file.pk)                                                                                                         |
+|                     ->  Bitmap Heap Scan on cleanspaxelprop5  (cost=1261.33..246308.95 rows=67212 width=20) (actual time=28.160..110.934 rows=67186 loops=1)                |
+|                           Recheck Cond: (emline_gflux_ha_6564 > '25'::double precision)                                                                                     |
+|                           Heap Blocks: exact=32531                                                                                                                          |
+|                           ->  Bitmap Index Scan on clean_emline5_gflux_ha_idx  (cost=0.00..1244.52 rows=67212 width=0) (actual time=17.968..17.968 rows=67186 loops=1)      |
+|                                 Index Cond: (emline_gflux_ha_6564 > '25'::double precision)                                                                                 |
+|                     ->  Hash  (cost=1772.28..1772.28 rows=7721 width=28) (actual time=37.330..37.330 rows=22220 loops=1)                                                    |
+|                           Buckets: 32768 (originally 8192)  Batches: 1 (originally 1)  Memory Usage: 1627kB                                                                 |
+|                           ->  Hash Join  (cost=398.56..1772.28 rows=7721 width=28) (actual time=4.853..29.295 rows=22220 loops=1)                                           |
+|                                 Hash Cond: (file.cube_pk = cube.pk)                                                                                                         |
+|                                 ->  Index Scan using pipeline_info_pk_idx on file  (cost=0.29..1213.47 rows=22220 width=12) (actual time=0.023..10.945 rows=22220 loops=1)  |
+|                                       Index Cond: (pipeline_info_pk = 26)                                                                                                   |
+|                                 ->  Hash  (cost=337.97..337.97 rows=4824 width=24) (actual time=4.787..4.787 rows=4824 loops=1)                                             |
+|                                       Buckets: 8192  Batches: 1  Memory Usage: 339kB                                                                                        |
+|                                       ->  Bitmap Heap Scan on cube  (cost=93.67..337.97 rows=4824 width=24) (actual time=0.691..3.150 rows=4824 loops=1)                    |
+|                                             Recheck Cond: (pipeline_info_pk = 25)                                                                                           |
+|                                             Heap Blocks: exact=172                                                                                                          |
+|                                             ->  Bitmap Index Scan on pipelineinfo_pk_idx  (cost=0.00..92.47 rows=4824 width=0) (actual time=0.651..0.651 rows=4824 loops=1) |
+|                                                   Index Cond: (pipeline_info_pk = 25)                                                                                       |
+|               ->  Hash  (cost=1.29..1.29 rows=29 width=8) (actual time=0.025..0.025 rows=29 loops=1)                                                                        |
+|                     Buckets: 1024  Batches: 1  Memory Usage: 10kB                                                                                                           |
+|                     ->  Seq Scan on ifudesign  (cost=0.00..1.29 rows=29 width=8) (actual time=0.006..0.012 rows=29 loops=1)                                                 |
+| Planning time: 4.805 ms                                                                                                                                                     |
+| Execution time: 418.118 ms                                                                                                                                                  |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+(35 rows)
+
++------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                   QUERY PLAN                                                                   |
++------------------------------------------------------------------------------------------------------------------------------------------------+
+| Bitmap Heap Scan on flattabletest c  (cost=1228.17..241092.46 rows=62394 width=43) (actual time=13.710..245.625 rows=62982 loops=1)            |
+|   Recheck Cond: (emline_gflux_ha_6564 > '25'::double precision)                                                                                |
+|   Filter: ((drppipe = 25) AND (dappipe = 26))                                                                                                  |
+|   Rows Removed by Filter: 4204                                                                                                                 |
+|   Heap Blocks: exact=32600                                                                                                                     |
+|   ->  Bitmap Index Scan on flat_emline_gflux_ha_6564_ix  (cost=0.00..1212.57 rows=65618 width=0) (actual time=8.417..8.417 rows=67186 loops=1) |
+|         Index Cond: (emline_gflux_ha_6564 > '25'::double precision)                                                                            |
+| Planning time: 0.652 ms                                                                                                                        |
+| Execution time: 248.144 ms                                                                                                                     |
++------------------------------------------------------------------------------------------------------------------------------------------------+
+(9 rows)
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                 QUERY PLAN                                                                                  |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Nested Loop  (cost=3197.95..276614.21 rows=11290 width=64) (actual time=34.576..349.645 rows=67186 loops=1)                                                                 |
+|   ->  Seq Scan on pipeline_info dapalias  (cost=0.00..1.18 rows=1 width=4) (actual time=0.007..0.007 rows=1 loops=1)                                                        |
+|         Filter: (pk = 26)                                                                                                                                                   |
+|         Rows Removed by Filter: 13                                                                                                                                          |
+|   ->  Nested Loop  (cost=3197.95..276471.91 rows=11290 width=36) (actual time=34.557..286.339 rows=67186 loops=1)                                                           |
+|         ->  Seq Scan on pipeline_info drpalias  (cost=0.00..1.18 rows=1 width=4) (actual time=0.004..0.020 rows=1 loops=1)                                                  |
+|               Filter: (pk = 25)                                                                                                                                             |
+|               Rows Removed by Filter: 13                                                                                                                                    |
+|         ->  Hash Join  (cost=3197.95..276357.83 rows=11290 width=40) (actual time=34.551..276.823 rows=67186 loops=1)                                                       |
+|               Hash Cond: (cube.ifudesign_pk = ifudesign.pk)                                                                                                                 |
+|               ->  Hash Join  (cost=3196.30..276200.94 rows=11290 width=40) (actual time=34.526..258.167 rows=67186 loops=1)                                                 |
+|                     Hash Cond: (c5_cx.file_pk = file.pk)                                                                                                                    |
+|                     ->  Bitmap Heap Scan on c5_cx  (cost=1327.51..273937.12 rows=75235 width=20) (actual time=14.203..88.753 rows=67186 loops=1)                            |
+|                           Recheck Cond: (emline_gflux_ha_6564 > '25'::double precision)                                                                                     |
+|                           Heap Blocks: exact=32531                                                                                                                          |
+|                           ->  Bitmap Index Scan on ix_emline_gflux_ha_6564  (cost=0.00..1308.70 rows=75235 width=0) (actual time=8.912..8.912 rows=67186 loops=1)           |
+|                                 Index Cond: (emline_gflux_ha_6564 > '25'::double precision)                                                                                 |
+|                     ->  Hash  (cost=1772.28..1772.28 rows=7721 width=28) (actual time=20.286..20.286 rows=22220 loops=1)                                                    |
+|                           Buckets: 32768 (originally 8192)  Batches: 1 (originally 1)  Memory Usage: 1627kB                                                                 |
+|                           ->  Hash Join  (cost=398.56..1772.28 rows=7721 width=28) (actual time=2.350..15.665 rows=22220 loops=1)                                           |
+|                                 Hash Cond: (file.cube_pk = cube.pk)                                                                                                         |
+|                                 ->  Index Scan using pipeline_info_pk_idx on file  (cost=0.29..1213.47 rows=22220 width=12) (actual time=0.008..5.720 rows=22220 loops=1)   |
+|                                       Index Cond: (pipeline_info_pk = 26)                                                                                                   |
+|                                 ->  Hash  (cost=337.97..337.97 rows=4824 width=24) (actual time=2.319..2.319 rows=4824 loops=1)                                             |
+|                                       Buckets: 8192  Batches: 1  Memory Usage: 339kB                                                                                        |
+|                                       ->  Bitmap Heap Scan on cube  (cost=93.67..337.97 rows=4824 width=24) (actual time=0.330..1.478 rows=4824 loops=1)                    |
+|                                             Recheck Cond: (pipeline_info_pk = 25)                                                                                           |
+|                                             Heap Blocks: exact=172                                                                                                          |
+|                                             ->  Bitmap Index Scan on pipelineinfo_pk_idx  (cost=0.00..92.47 rows=4824 width=0) (actual time=0.311..0.311 rows=4824 loops=1) |
+|                                                   Index Cond: (pipeline_info_pk = 25)                                                                                       |
+|               ->  Hash  (cost=1.29..1.29 rows=29 width=8) (actual time=0.014..0.014 rows=29 loops=1)                                                                        |
+|                     Buckets: 1024  Batches: 1  Memory Usage: 10kB                                                                                                           |
+|                     ->  Seq Scan on ifudesign  (cost=0.00..1.29 rows=29 width=8) (actual time=0.002..0.005 rows=29 loops=1)                                                 |
+| Planning time: 1.571 ms                                                                                                                                                     |
+| Execution time: 353.142 ms                                                                                                                                                  |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+(35 rows)
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+|                                                                                 QUERY PLAN                                                                                  |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Nested Loop  (cost=1851.07..207761.69 rows=10154 width=64) (actual time=26.672..1907.232 rows=67186 loops=1)                                                                |
+|   ->  Seq Scan on pipeline_info dapalias  (cost=0.00..1.18 rows=1 width=4) (actual time=0.009..0.010 rows=1 loops=1)                                                        |
+|         Filter: (pk = 26)                                                                                                                                                   |
+|         Rows Removed by Filter: 13                                                                                                                                          |
+|   ->  Nested Loop  (cost=1851.07..207633.59 rows=10154 width=36) (actual time=26.652..1851.461 rows=67186 loops=1)                                                          |
+|         ->  Seq Scan on pipeline_info drpalias  (cost=0.00..1.18 rows=1 width=4) (actual time=0.002..0.009 rows=1 loops=1)                                                  |
+|               Filter: (pk = 25)                                                                                                                                             |
+|               Rows Removed by Filter: 13                                                                                                                                    |
+|         ->  Hash Join  (cost=1851.07..207530.87 rows=10154 width=40) (actual time=26.569..1843.577 rows=67186 loops=1)                                                      |
+|               Hash Cond: (cube.ifudesign_pk = ifudesign.pk)                                                                                                                 |
+|               ->  Hash Join  (cost=1849.42..207389.60 rows=10154 width=40) (actual time=26.544..1827.715 rows=67186 loops=1)                                                |
+|                     Hash Cond: (c5_cstore.file_pk = file.pk)                                                                                                                |
+|                     ->  Foreign Scan on c5_cstore  (cost=0.00..205184.90 rows=67665 width=20) (actual time=6.001..1787.018 rows=67186 loops=1)                              |
+|                           Filter: (emline_gflux_ha_6564 > '25'::double precision)                                                                                           |
+|                           Rows Removed by Filter: 7347219                                                                                                                   |
+|                           CStore File: /xfs/postgres_db/cstore/c5_cstore.cstore                                                                                             |
+|                           CStore File Size: 10357918566                                                                                                                     |
+|                     ->  Hash  (cost=1752.90..1752.90 rows=7721 width=28) (actual time=20.514..20.514 rows=22220 loops=1)                                                    |
+|                           Buckets: 32768 (originally 8192)  Batches: 1 (originally 1)  Memory Usage: 1627kB                                                                 |
+|                           ->  Hash Join  (cost=380.47..1752.90 rows=7721 width=28) (actual time=2.503..15.704 rows=22220 loops=1)                                           |
+|                                 Hash Cond: (file.cube_pk = cube.pk)                                                                                                         |
+|                                 ->  Index Scan using pipeline_info_pk_idx on file  (cost=0.29..1212.19 rows=22220 width=12) (actual time=0.009..5.624 rows=22220 loops=1)   |
+|                                       Index Cond: (pipeline_info_pk = 26)                                                                                                   |
+|                                 ->  Hash  (cost=319.88..319.88 rows=4824 width=24) (actual time=2.469..2.469 rows=4824 loops=1)                                             |
+|                                       Buckets: 8192  Batches: 1  Memory Usage: 339kB                                                                                        |
+|                                       ->  Index Scan using pipelineinfo_pk_idx on cube  (cost=0.29..319.88 rows=4824 width=24) (actual time=0.007..1.570 rows=4824 loops=1) |
+|                                             Index Cond: (pipeline_info_pk = 25)                                                                                             |
+|               ->  Hash  (cost=1.29..1.29 rows=29 width=8) (actual time=0.014..0.014 rows=29 loops=1)                                                                        |
+|                     Buckets: 1024  Batches: 1  Memory Usage: 10kB                                                                                                           |
+|                     ->  Seq Scan on ifudesign  (cost=0.00..1.29 rows=29 width=8) (actual time=0.004..0.009 rows=29 loops=1)                                                 |
+| Planning time: 1.259 ms                                                                                                                                                     |
+| Execution time: 1911.062 ms                                                                                                                                                 |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+(32 rows)
+
