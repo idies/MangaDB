@@ -14,17 +14,17 @@ emline_sew_ha_6564
 
 alter table mangadapdb.flattabletest add primary key(pk);
 
-create index flat_plate_ix on mangadapdb.flattabletest(plate);
-create index flat_plateifu_ix on mangadapdb.flattabletest(plateifu);
-create index flat_name_ix on mangadapdb.flattabletest(name);
-create index flat_drppipe_ix on mangadapdb.flattabletest(drppipe);
-create index flat_dappipe_ix on mangadapdb.flattabletest(dappipe);
-create index flat_nsa_pk_ix on mangadapdb.flattabletest(nsa_pk);
-create index flat_binid_ix on mangadapdb.flattabletest(binid);
-create index flat_emline_gflux_ha_6564_ix on mangadapdb.flattabletest(emline_gflux_ha_6564);
-create index flat_emline_sew_ha_6564_ix on mangadapdb.flattabletest(emline_sew_ha_6564);
+create index flat_plate_ix on mangadapdb.flattabletest(plate)with ( fillfactor = 100);
+create index flat_plateifu_ix on mangadapdb.flattabletest(plateifu)with ( fillfactor = 100);
+create index flat_name_ix on mangadapdb.flattabletest(name)with ( fillfactor = 100);
+create index flat_drppipe_ix on mangadapdb.flattabletest(drppipe)with ( fillfactor = 100);
+create index flat_dappipe_ix on mangadapdb.flattabletest(dappipe)with ( fillfactor = 100);
+create index flat_nsa_pk_ix on mangadapdb.flattabletest(nsa_pk)with ( fillfactor = 100);
+create index flat_binid_ix on mangadapdb.flattabletest(binid)with ( fillfactor = 100);
+create index flat_emline_gflux_ha_6564_ix on mangadapdb.flattabletest(emline_gflux_ha_6564)with ( fillfactor = 100);
+create index flat_emline_sew_ha_6564_ix on mangadapdb.flattabletest(emline_sew_ha_6564)with ( fillfactor = 100);
 
-vacuum analyze mangadapdb.flattabletest
+vacuum analyze mangadapdb.flattabletest;
 
 
 

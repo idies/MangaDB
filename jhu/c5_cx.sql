@@ -2,7 +2,9 @@
 
 create table mangadapdb.c5_cx as select * from mangadapdb.cleanspaxelprop5;
 
-CREATE	INDEX CX_file_pk on mangadapdb.c5_cx ( file_pk ) WITH (FILLFACTOR=100);
+alter table c5_cx add primary key cx_file_pk(file_pk);
+
+--CREATE	INDEX CX_file_pk on mangadapdb.c5_cx ( file_pk ) WITH (FILLFACTOR=100);
 alter table mangadapdb.c5_cx cluster on cx_file_pk;
 
 CREATE	INDEX IX_specindex_d4000  on mangadapdb.c5_cx( specindex_d4000 ) WITH (FILLFACTOR=100);
