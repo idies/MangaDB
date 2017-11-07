@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../../../GitHub/db-meas-forced/.idea/db-meas-forced.iml" filepath="$PROJECT_DIR$/../../../../GitHub/db-meas-forced/.idea/db-meas-forced.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/mypkg.iml" filepath="$PROJECT_DIR$/.idea/mypkg.iml" />
+    </modules>
+  </component>
+</project>
