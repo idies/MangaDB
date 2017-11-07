@@ -24,7 +24,7 @@ create index flat_binid_ix on mangadapdb.flattabletest(binid)with ( fillfactor =
 create index flat_emline_gflux_ha_6564_ix on mangadapdb.flattabletest(emline_gflux_ha_6564)with ( fillfactor = 100);
 create index flat_emline_sew_ha_6564_ix on mangadapdb.flattabletest(emline_sew_ha_6564)with ( fillfactor = 100);
 
-vacuum analyze mangadapdb.flattabletest;
+analyze mangadapdb.flattabletest;
 
 
 

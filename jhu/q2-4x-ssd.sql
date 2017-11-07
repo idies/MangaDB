@@ -1,17 +1,17 @@
 \echo q2 normal start
 SELECT
-  anon_1."cube.mangaid",
-  anon_1."cube.plate",
-  concat(anon_1."cube.plate", '-', anon_1."ifu.name") AS plateifu,
-  anon_1."ifu.name"
+  anon_1.cube.mangaid,
+  anon_1.cube.plate,
+  concat(anon_1.cube.plate, "-", anon_1.ifu.name) AS plateifu,
+  anon_1.ifu.name
 FROM (SELECT
-        mangadatadb.cube.mangaid                                        AS "cube.mangaid",
-        mangadatadb.cube.plate                                          AS "cube.plate",
-        concat(mangadatadb.cube.plate, '-', mangadatadb.ifudesign.name) AS "cube.plateifu",
-        mangadatadb.ifudesign.name                                      AS "ifu.name",
+        mangadatadb.cube.mangaid                                        AS cube.mangaid,
+        mangadatadb.cube.plate                                          AS cube.plate,
+        concat(mangadatadb.cube.plate, '-', mangadatadb.ifudesign.name) AS cube.plateifu,
+        mangadatadb.ifudesign.name                                      AS ifu.name,
         mangadapdb.c5_ssd.emline_gflux_ha_6564                AS emline_gflux_ha_6564,
-        mangadapdb.c5_ssd.x                                   AS "spaxelprop.x",
-        mangadapdb.c5_ssd.y                                   AS "spaxelprop.y"
+        mangadapdb.c5_ssd.x                                   AS spaxelprop.x,
+        mangadapdb.c5_ssd.y                                   AS spaxelprop.y
       FROM mangadatadb.cube
         JOIN mangadatadb.ifudesign ON mangadatadb.ifudesign.pk = mangadatadb.cube.ifudesign_pk
         JOIN mangadapdb.file ON mangadatadb.cube.pk = mangadapdb.file.cube_pk
@@ -33,8 +33,8 @@ FROM (SELECT
               GROUP BY mangadapdb.c5_ssd.file_pk) AS goodhacount
           ON goodhacount.valfile = mangadapdb.c5_ssd.file_pk
       WHERE drpalias.pk = 25 AND dapalias.pk = 26 AND goodhacount.valcount >= 0.2 * bingood.goodcount) AS anon_1
-GROUP BY anon_1."cube.mangaid", anon_1."cube.plate", concat(anon_1."cube.plate", '-', anon_1."ifu.name"),
-  anon_1."ifu.name";
+GROUP BY anon_1.cube.mangaid, anon_1.cube.plate, concat(anon_1.cube.plate, "-", anon_1.ifu.name),
+  anon_1.ifu.name;
   
   \echo q2 normal end
 
@@ -77,18 +77,18 @@ GROUP BY a.mangaid, a.plate, a.plateifu, a.name;
 
 \echo q2 cx start
 SELECT
-  anon_1."cube.mangaid",
-  anon_1."cube.plate",
-  concat(anon_1."cube.plate", '-', anon_1."ifu.name") AS plateifu,
-  anon_1."ifu.name"
+  anon_1.cube.mangaid,
+  anon_1.cube.plate,
+  concat(anon_1.cube.plate, '-', anon_1.ifu.name) AS plateifu,
+  anon_1.ifu.name
 FROM (SELECT
-        mangadatadb.cube.mangaid                                        AS "cube.mangaid",
-        mangadatadb.cube.plate                                          AS "cube.plate",
-        concat(mangadatadb.cube.plate, '-', mangadatadb.ifudesign.name) AS "cube.plateifu",
-        mangadatadb.ifudesign.name                                      AS "ifu.name",
+        mangadatadb.cube.mangaid                                        AS cube.mangaid,
+        mangadatadb.cube.plate                                          AS cube.plate,
+        concat(mangadatadb.cube.plate, '-', mangadatadb.ifudesign.name) AS cube.plateifu,
+        mangadatadb.ifudesign.name                                      AS ifu.name,
         mangadapdb.c5_cx_ssd.emline_gflux_ha_6564                AS emline_gflux_ha_6564,
-        mangadapdb.c5_cx_ssd.x                                   AS "spaxelprop.x",
-        mangadapdb.c5_cx_ssd.y                                   AS "spaxelprop.y"
+        mangadapdb.c5_cx_ssd.x                                   AS spaxelprop.x,
+        mangadapdb.c5_cx_ssd.y                                   AS spaxelprop.y
       FROM mangadatadb.cube
         JOIN mangadatadb.ifudesign ON mangadatadb.ifudesign.pk = mangadatadb.cube.ifudesign_pk
         JOIN mangadapdb.file ON mangadatadb.cube.pk = mangadapdb.file.cube_pk
@@ -110,25 +110,25 @@ FROM (SELECT
               GROUP BY mangadapdb.c5_cx_ssd.file_pk) AS goodhacount
           ON goodhacount.valfile = mangadapdb.c5_cx_ssd.file_pk
       WHERE drpalias.pk = 25 AND dapalias.pk = 26 AND goodhacount.valcount >= 0.2 * bingood.goodcount) AS anon_1
-GROUP BY anon_1."cube.mangaid", anon_1."cube.plate", concat(anon_1."cube.plate", '-', anon_1."ifu.name"),
-  anon_1."ifu.name";
+GROUP BY anon_1.cube.mangaid, anon_1.cube.plate, concat(anon_1.cube.plate, '-', anon_1.ifu.name),
+  anon_1.ifu.name;
   
   \echo q2 cx end
   
   \echo q2 cstore start
   SELECT
-    anon_1."cube.mangaid",
-    anon_1."cube.plate",
-    concat(anon_1."cube.plate", '-', anon_1."ifu.name") AS plateifu,
-    anon_1."ifu.name"
+    anon_1.cube.mangaid,
+    anon_1.cube.plate,
+    concat(anon_1.cube.plate, '-', anon_1.ifu.name) AS plateifu,
+    anon_1.ifu.name
   FROM (SELECT
-          mangadatadb.cube.mangaid                                        AS "cube.mangaid",
-          mangadatadb.cube.plate                                          AS "cube.plate",
-          concat(mangadatadb.cube.plate, '-', mangadatadb.ifudesign.name) AS "cube.plateifu",
-          mangadatadb.ifudesign.name                                      AS "ifu.name",
+          mangadatadb.cube.mangaid                                        AS cube.mangaid,
+          mangadatadb.cube.plate                                          AS cube.plate,
+          concat(mangadatadb.cube.plate, '-', mangadatadb.ifudesign.name) AS cube.plateifu,
+          mangadatadb.ifudesign.name                                      AS ifu.name,
           mangadapdb.c5_cstore_ssd.emline_gflux_ha_6564                AS emline_gflux_ha_6564,
-          mangadapdb.c5_cstore_ssd.x                                   AS "spaxelprop.x",
-          mangadapdb.c5_cstore_ssd.y                                   AS "spaxelprop.y"
+          mangadapdb.c5_cstore_ssd.x                                   AS spaxelprop.x,
+          mangadapdb.c5_cstore_ssd.y                                   AS spaxelprop.y
         FROM mangadatadb.cube
           JOIN mangadatadb.ifudesign ON mangadatadb.ifudesign.pk = mangadatadb.cube.ifudesign_pk
           JOIN mangadapdb.file ON mangadatadb.cube.pk = mangadapdb.file.cube_pk
@@ -150,8 +150,8 @@ GROUP BY anon_1."cube.mangaid", anon_1."cube.plate", concat(anon_1."cube.plate",
                 GROUP BY mangadapdb.c5_cstore_ssd.file_pk) AS goodhacount
             ON goodhacount.valfile = mangadapdb.c5_cstore_ssd.file_pk
         WHERE drpalias.pk = 25 AND dapalias.pk = 26 AND goodhacount.valcount >= 0.2 * bingood.goodcount) AS anon_1
-  GROUP BY anon_1."cube.mangaid", anon_1."cube.plate", concat(anon_1."cube.plate", '-', anon_1."ifu.name"),
-  anon_1."ifu.name";
+  GROUP BY anon_1.cube.mangaid, anon_1.cube.plate, concat(anon_1.cube.plate, '-', anon_1.ifu.name),
+  anon_1.ifu.name;
   
   \echo q2 cstore end
   

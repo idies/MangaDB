@@ -19,6 +19,3 @@ FROM mangadatadb.cube
 WHERE mangadapdb.cleanspaxelprop5.emline_gflux_ha_6564 > 25.0 AND drpalias.pk = 25 AND dapalias.pk = 26');
 
 
-
-
-select quote_literal

@@ -99,6 +99,9 @@ def main():
     flatsource = 'FLAT'
     flattables = 'flattabletest', 'flat_ssd', 'flat_cstore', 'flat_cstore_ssd'
 
+    spaxsource = 'SPAX'
+    spaxtables = 'spaxel', 'spaxel_cx'
+
     qtemplates = {
         'q1': 'q1-c5.sql',
         'q2': 'q2-c5.sql',
@@ -113,6 +116,11 @@ def main():
         'q4': 'q4-flat.sql'
 
     }
+
+    qspax = {
+        'q5': 'q5-spax.sql'
+    }
+
     #setup db conn
     conn_string = "host='dsp064' dbname='manga' user='manga' password='20manga17'"
     conn = psycopg2.connect(conn_string)
@@ -121,11 +129,11 @@ def main():
     nRuns = 5  #run each query n times
 
     #test c5 tables
-    doTest(c5tables, qtemplates, c5source, nRuns, cursor)
+    #doTest(c5tables, qtemplates, c5source, nRuns, cursor)
 
-    doTest(flattables, qflat, flatsource, nRuns, cursor)
+   #doTest(flattables, qflat, flatsource, nRuns, cursor)
 
-
+    doTest(spaxtables, qspax, spaxsource, nRuns, cursor)
 
 
 

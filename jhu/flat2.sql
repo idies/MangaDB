@@ -21,7 +21,7 @@ FROM mangadatadb.cube AS c right outer JOIN mangasampledb.manga_target AS m ON m
   
   
   
-
+SELECT * FROM mangadapdb.flattabletest LIMIT 20;
   
   
   

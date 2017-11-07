@@ -15,7 +15,7 @@ CREATE TABLE "c5_flat_ssd" (
 	"spx_ellcoo_elliptical_radius" REAL NULL DEFAULT NULL,
 	"spx_ellcoo_elliptical_azimuth" REAL NULL DEFAULT NULL,
 	"spx_mflux" REAL NULL DEFAULT NULL,
-	"spx_mflux_ivar" DOUBLE PRECISION NULL DEFAULT NULL,
+	"spx_mflux_ivar" DOUBLE PRECISION NULL DEFAULT NULL,n
 	"spx_snr" REAL NULL DEFAULT NULL,
 	"binid" INTEGER NULL DEFAULT NULL,
 	"bin_lwskycoo_lum_weighted_on_sky_x" REAL NULL DEFAULT NULL,

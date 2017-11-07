@@ -19,3 +19,7 @@ CREATE	INDEX IX_c5_ssd_stellar_vel  on mangadapdb.c5_ssd( stellar_vel )WITH (FIL
 
 analyze mangadapdb.c5_ssd;
 
+
+
+
+

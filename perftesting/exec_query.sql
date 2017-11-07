@@ -1,6 +1,7 @@
---drop function exec_query(text, text);
+--drop function exec_query(interval);
 create or replace function exec_query(c5table text, qstring text)  
-returns interval as $$
+returns table(q text, starttz timestamptz, endtz timestamptz, d interval) as $$
+--returns interval as $$
 declare 
 	myquery text;
 	StartTime timestamptz;
@@ -19,7 +20,8 @@ begin
 	EndTime := clock_timestamp();
 	Delta := 1000 * (extract(epoch from EndTime) - extract(epoch from StartTime));
 	
-	return Delta;
+	select (myquery, StartTime, EndTime, Delta) into tab;
+	return tab;
 	
 end;
 $$ language plpgsql;
