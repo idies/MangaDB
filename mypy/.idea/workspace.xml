@@ -22,11 +22,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBHelper.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DBHelper.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mypkg/DBHelper.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="740">
-              <caret line="103" column="0" lean-forward="true" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+            <state relative-caret-position="434">
+              <caret line="50" column="52" lean-forward="true" selection-start-line="50" selection-start-column="52" selection-end-line="50" selection-end-column="52" />
               <folding>
                 <element signature="e#2#31#0" expanded="true" />
               </folding>
@@ -37,8 +37,40 @@
       <file leaf-file-name="pgrun.py" pinned="false" current-in-tab="false">
         <entry file="file://H:/GitHub/MangaDB/pgrun/pgrun/pgrun.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="578">
-              <caret line="99" column="42" lean-forward="true" selection-start-line="99" selection-start-column="17" selection-end-line="99" selection-end-column="78" />
+            <state relative-caret-position="510">
+              <caret line="83" column="0" lean-forward="true" selection-start-line="82" selection-start-column="12" selection-end-line="84" selection-end-column="55" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fktest.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mypkg/fktest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="19" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="57" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ORMQueries.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/mypkg/ORMQueries.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="925">
+              <caret line="156" column="35" lean-forward="false" selection-start-line="156" selection-start-column="35" selection-end-line="156" selection-end-column="35" />
+              <folding>
+                <element signature="e#1#30#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ORMQueries2.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/mypkg/ORMQueries2.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="32" column="36" lean-forward="true" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -47,8 +79,8 @@
       <file leaf-file-name="database.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mypkg/database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="748">
-              <caret line="51" column="22" lean-forward="false" selection-start-line="51" selection-start-column="22" selection-end-line="51" selection-end-column="22" />
+            <state relative-caret-position="425">
+              <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -57,8 +89,8 @@
       <file leaf-file-name="DatabaseConnection.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/mypkg/DatabaseConnection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="935">
-              <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
+            <state relative-caret-position="689">
+              <caret line="138" column="13" lean-forward="false" selection-start-line="138" selection-start-column="13" selection-end-line="138" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -66,16 +98,33 @@
       </file>
     </leaf>
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>File</find>
+      <find>dapdb.Cleanspaxelprop5</find>
+      <find>suedb.c</find>
+      <find>dapdb.CleanSpaxelProp5</find>
     </findStrings>
+    <replaceStrings>
+      <replace>suedb.c</replace>
+      <replace>C5</replace>
+    </replaceStrings>
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/mypkg/DatabaseConnection.py" />
+        <option value="$PROJECT_DIR$/mypkg/fktest.py" />
+        <option value="$PROJECT_DIR$/mypkg/ORMQueries2.py" />
         <option value="$PROJECT_DIR$/mypkg/DBHelper.py" />
+        <option value="$PROJECT_DIR$/mypkg/DatabaseConnection.py" />
+        <option value="$PROJECT_DIR$/mypkg/ORMQueries.py" />
       </list>
     </option>
   </component>
@@ -117,16 +166,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mypy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mypy" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
@@ -134,6 +173,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="H:\magrathea\marvin\mypy\mypkg" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -277,36 +321,62 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/mypkg/DatabaseConnection.py">
+    <entry file="file://$PROJECT_DIR$/mypkg/fktest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="150" column="0" lean-forward="true" selection-start-line="150" selection-start-column="0" selection-end-line="150" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mypkg/database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="748">
-          <caret line="51" column="22" lean-forward="false" selection-start-line="51" selection-start-column="22" selection-end-line="51" selection-end-column="22" />
+        <state relative-caret-position="51">
+          <caret line="3" column="19" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="5" selection-end-column="57" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://H:/GitHub/MangaDB/pgrun/pgrun/pgrun.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="578">
-          <caret line="99" column="42" lean-forward="true" selection-start-line="99" selection-start-column="17" selection-end-line="99" selection-end-column="78" />
+        <state relative-caret-position="510">
+          <caret line="83" column="0" lean-forward="true" selection-start-line="82" selection-start-column="12" selection-end-line="84" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mypkg/ORMQueries2.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="32" column="36" lean-forward="true" selection-start-line="32" selection-start-column="36" selection-end-line="32" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mypkg/DBHelper.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="740">
-          <caret line="103" column="0" lean-forward="true" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
+        <state relative-caret-position="434">
+          <caret line="50" column="52" lean-forward="true" selection-start-line="50" selection-start-column="52" selection-end-line="50" selection-end-column="52" />
           <folding>
             <element signature="e#2#31#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mypkg/database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mypkg/DatabaseConnection.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="689">
+          <caret line="138" column="13" lean-forward="false" selection-start-line="138" selection-start-column="13" selection-end-line="138" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mypkg/ORMQueries.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="925">
+          <caret line="156" column="35" lean-forward="false" selection-start-line="156" selection-start-column="35" selection-end-line="156" selection-end-column="35" />
+          <folding>
+            <element signature="e#1#30#0" expanded="true" />
           </folding>
         </state>
       </provider>

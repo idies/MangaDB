@@ -32,6 +32,16 @@ class C5Cstore(Base, SpaxelAtts):
     def __repr__(self):
         return '<c5_cstore (pk={0}, file={1})'.format(self.pk, self.file_pk)
 
+class C5SSD(Base, SpaxelAtts):
+    __tablename__ = 'c5_ssd'
+    __table_args__ = {'autoload': True, 'schema': 'mangadapdb'}
+    pk = Column(Integer, primary_key=True)
+    file_pk = Column('file_pk', Integer, ForeignKey('mangadapdb.file.pk'))
+    #file = relationship('File', backref = 'files')
+    def __repr__(self):
+        return '<c5_ssd (pk={0}, file={1})'.format(self.pk, self.file_pk)
+
+
 
 class C5CstoreSSD(Base, SpaxelAtts):
     __tablename__ = 'c5_cstore_ssd'

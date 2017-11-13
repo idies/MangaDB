@@ -135,14 +135,14 @@ class DatabaseConnection(object):
             me.database_connection_string = database_connection_string
 
             # change 'echo' to print each SQL query (for debugging/optimizing/the curious)
-            #me.engine = create_engine(me.database_connection_string, echo=False, pool_size=10, pool_recycle=1800)
-            me.engine = create_engine(me.database_connection_string, echo=True, pool_size=10, pool_recycle=1800)
+            me.engine = create_engine(me.database_connection_string, echo=False, pool_size=10, pool_recycle=1800)
+            #me.engine = create_engine(me.database_connection_string, echo=True, pool_size=10, pool_recycle=1800)
 
             me.metadata = MetaData()
             me.metadata.bind = me.engine
             me.Base = declarative_base(bind=me.engine)
             me.Session = scoped_session(sessionmaker(bind=me.engine, autocommit=True,
-                                                     query_cls=caching_query.query_callable(regions),
+                                                     query_cls=caching_query.query_callable(regions),  ##take this out
                                                      expire_on_commit=expire_on_commit))
             # ------------------------------------------------
 
