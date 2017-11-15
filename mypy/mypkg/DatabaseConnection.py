@@ -136,7 +136,7 @@ class DatabaseConnection(object):
 
             # change 'echo' to print each SQL query (for debugging/optimizing/the curious)
             me.engine = create_engine(me.database_connection_string, echo=False, pool_size=10, pool_recycle=1800)
-            #me.engine = create_engine(me.database_connection_string, echo=True, pool_size=10, pool_recycle=1800)
+            #p1 = 'me.engine = create_engine(me.database_connection_string, echo=True, pool_size=10, pool_recycle=1800)
 
             me.metadata = MetaData()
             me.metadata.bind = me.engine

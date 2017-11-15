@@ -13,35 +13,37 @@ import datetime
 
 
 def doAllTests(nRuns):
+
+
+
+        doC5Tests(nRuns)
+
+
+        doFlatTests(nRuns)
+
+
+def doFlatTests(nRuns):
+    session = db.Session();
+
     flats = [suedb.FlatTableTest, suedb.FlatTableSSD, suedb.FlatTableCstore, suedb.FlatTableCstoreSSD]
+
+    for Flattable in flats:
+        doQuery(generateQ1Flat(Flattable, session),'q1',Flattable, nRuns);
+        doQuery(generateQ2Flat(Flattable, session), 'q2', Flattable, nRuns);
+        doQuery(generateQ3Flat(Flattable, session), 'q3', Flattable, nRuns);
+        doQuery(generateQ4Flat(Flattable, session), 'q4', Flattable, nRuns);
+
+
+def doC5Tests(nRuns):
+
+    session = db.Session();
     c5s = [dapdb.CleanSpaxelProp5, suedb.C5SSD, suedb.C5cx, suedb.C5cxSSD, suedb.C5Cstore, suedb.C5CstoreSSD]
 
-    for table in c5s:
-        doC5Tests(table, nRuns)
-
-    for flattable in flats:
-        doFlatTests(flattable, nRuns)
-
-
-def doFlatTests(Flattable, nRuns):
-    session = db.Session();
-
-    doQuery(generateQ1Flat(Flattable, session),'q1',Flattable, nRuns);
-    doQuery(generateQ2Flat(Flattable, session), 'q2', Flattable, nRuns);
-    doQuery(generateQ3Flat(Flattable, session), 'q3', Flattable, nRuns);
-    doQuery(generateQ4Flat(Flattable, session), 'q4', Flattable, nRuns);
-
-
-def doC5Tests(C5Table, nRuns):
-
-    session = db.Session();
-
-
-
-    doQuery(generateQ1(C5Table, session),'q1',C5Table, nRuns);
-    doQuery(generateQ2(C5Table, session), 'q2', C5Table, nRuns);
-    doQuery(generateQ3(C5Table, session), 'q3', C5Table, nRuns);
-    doQuery(generateQ4(C5Table, session), 'q4', C5Table, nRuns);
+    for C5Table in c5s:
+        doQuery(generateQ1(C5Table, session),'q1',C5Table, nRuns);
+        doQuery(generateQ2(C5Table, session), 'q2', C5Table, nRuns);
+        doQuery(generateQ3(C5Table, session), 'q3', C5Table, nRuns);
+        doQuery(generateQ4(C5Table, session), 'q4', C5Table, nRuns);
 
 def doQuery(q, qname, C5Table, nRuns):
     count = 1
@@ -51,7 +53,7 @@ def doQuery(q, qname, C5Table, nRuns):
         end = datetime.datetime.now();
         td = end - start
         #print('r1 time', td.total_seconds())
-        results = (qname, C5Table, count, td.total_seconds(), len(r1))
+        results = (qname, C5Table, count, td.total_seconds(), len(r1))r.
 
         print('\t'.join(map(str, results)))
         count = count + 1
@@ -120,14 +122,12 @@ def generateQ2(C5Table, session):
 def generateQ2Flat(table, session):
     f = table
 
-    q2 = session.query(f.mangaid, f.plate, f.plateifu, f.name, f.emline_gflux_ha_6564, f.x, f.y).filter(f.drppipe == 26,
+    q2 = session.query(f.mangaid, f.plate, f.plateifu, f.name, f.emline_gflux_ha_6564, f.x, f.y).filter(f.drppipe == 25,
                                                                                                         f.dappipe == 26)
     bincount = session.query(f.file_pk.label('binfile'), func.count(f.pk).label('goodcount')).filter(
         f.binid != -1).group_by(f.file_pk).subquery('bingood', with_labels=True)
     valcount = session.query(f.file_pk.label('valfile'), func.count(f.pk).label('valcount')).filter(
         f.emline_gflux_ha_6564 > 5).group_by(f.file_pk).subquery('goodhacount', with_labels=True)
-    q2 = q2.join(bincount, bincount.c.binfine == f.file_pk).join(valcount, valcount.c.valfile == f.file_pk).filter(
-        valcount.c.valcount >= 0.2 * bincount.c.goodcount)
     q2 = q2.join(bincount, bincount.c.binfile == f.file_pk).join(valcount, valcount.c.valfile == f.file_pk).filter(
         valcount.c.valcount >= 0.2 * bincount.c.goodcount)
     q2 = q2.from_self(f.mangaid, f.plate, f.plateifu, f.name).group_by(f.mangaid, f.plate, f.plateifu, f.name)
