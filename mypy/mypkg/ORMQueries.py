@@ -4,6 +4,11 @@ import mypkg.DapModelClasses as dapdb
 import mypkg.DataModelClasses as datadb
 import mypkg.SampleModelClasses as sampledb
 import mypkg.DBHelper as suedb
+import psycopg2;
+import os;
+import time;
+
+
 
 
 
@@ -11,16 +16,67 @@ from sqlalchemy.orm import aliased
 from sqlalchemy import func
 import datetime
 
+class DBTester(object):
+    c5templates = {
+        'q1': 'q1-c5.sql',
+        'q2': 'q2-c5.sql',
+        'q3': 'q3-c5.sql',
+        'q4': 'q4-c5.sql'
+    }
+
+    flattemplates = {
+        'q1': 'q1-flat.sql',
+        'q2': 'q2-flat.sql',
+        'q3': 'q3-flat.sql',
+        'q4': 'q4-flat.sql'
+
+    }
+
+    c5tables = 'cleanspaxelprop5',  'c5_ssd','c5_cx','c5_cx_ssd', 'c5_cstore', 'c5_cstore_ssd'
+    c5source = 'C5TABLE'
+
+    flatsource = 'FLAT'
+    flattables = 'flattabletest', 'flat_ssd', 'flat_cstore', 'flat_cstore_ssd'
+
+    conn_string = "host='dsp064' dbname='manga' user='manga' password='20manga17'"
+
+    logname = 'suelog'
+
+
+
+    def getCursor(self):
+        conn = psycopg2.connect(self.conn_string)
+        self.cursor =  conn.cursor()
+        return self.cursor;
+
+    def setLogName(self, lname):
+        self.logname = lname;
+
+    def getLogName(self):
+        return self.logname;
+
+    def generate_query(self, query, templatefile, code, table):
+        lines = []
+        with open(os.path.join('templates', templatefile)) as tfile:
+            for line in tfile:
+                line = line.replace(code, table)
+                lines.append(line)
+        return ''.join(lines)
+
+    def runcmd(self, cmd, cursor):
+        start = datetime.datetime.now();
+        cursor.execute(str(cmd))
+        end = datetime.datetime.now();
+        td = end - start;
+        records = cursor.fetchall();
+        return td.total_seconds(), len(records)
 
 def doAllTests(nRuns):
 
-
-
         doC5Tests(nRuns)
-
-
         doFlatTests(nRuns)
-
+        doC5_db(nRuns)
+        doFlat_db(nRuns)
 
 def doFlatTests(nRuns):
     session = db.Session();
@@ -28,10 +84,10 @@ def doFlatTests(nRuns):
     flats = [suedb.FlatTableTest, suedb.FlatTableSSD, suedb.FlatTableCstore, suedb.FlatTableCstoreSSD]
 
     for Flattable in flats:
-        doQuery(generateQ1Flat(Flattable, session),'q1',Flattable, nRuns);
-        doQuery(generateQ2Flat(Flattable, session), 'q2', Flattable, nRuns);
-        doQuery(generateQ3Flat(Flattable, session), 'q3', Flattable, nRuns);
-        doQuery(generateQ4Flat(Flattable, session), 'q4', Flattable, nRuns);
+        doQuery(generateQ1Flat(Flattable, session),'q1',Flattable.__tablename__, nRuns);
+        doQuery(generateQ2Flat(Flattable, session), 'q2', Flattable.__tablename__, nRuns);
+        doQuery(generateQ3Flat(Flattable, session), 'q3', Flattable.__tablename__, nRuns);
+        doQuery(generateQ4Flat(Flattable, session), 'q4', Flattable.__tablename__, nRuns);
 
 
 def doC5Tests(nRuns):
@@ -40,12 +96,68 @@ def doC5Tests(nRuns):
     c5s = [dapdb.CleanSpaxelProp5, suedb.C5SSD, suedb.C5cx, suedb.C5cxSSD, suedb.C5Cstore, suedb.C5CstoreSSD]
 
     for C5Table in c5s:
-        doQuery(generateQ1(C5Table, session),'q1',C5Table, nRuns);
-        doQuery(generateQ2(C5Table, session), 'q2', C5Table, nRuns);
-        doQuery(generateQ3(C5Table, session), 'q3', C5Table, nRuns);
-        doQuery(generateQ4(C5Table, session), 'q4', C5Table, nRuns);
+        doQuery(generateQ1(C5Table, session),'q1',C5Table.__tablename__, nRuns);
+        doQuery(generateQ2(C5Table, session), 'q2', C5Table.__tablename__, nRuns);
+        doQuery(generateQ3(C5Table, session), 'q3', C5Table.__tablename__, nRuns);
+        doQuery(generateQ4(C5Table, session), 'q4', C5Table.__tablename__, nRuns);
 
-def doQuery(q, qname, C5Table, nRuns):
+
+def doC5_db(nRuns):
+
+    d = DBTester();
+    templates = d.c5templates;
+    tables = d.c5tables;
+    source = d.c5source;
+
+    doDBTests(tables, templates, source, nRuns, d)
+
+    return
+
+def doFlat_db(nRuns):
+    d = DBTester();
+    templates = d.flattemplates
+    tables = d.flattables
+    source = d.flatsource
+
+    doDBTests(tables, templates, source, nRuns, d)
+    return
+
+def outputResults(results):
+
+    #print
+    print('\t'.join(map(str, results)))
+
+    #file
+    import time
+    #moment = time.strftime("%Y-%b-%d__%H_%M_%S", time.localtime())
+    moment = time.strftime("%Y-%b-%d_%H", time.localtime())
+    f = open('out' + moment + '.log', 'a')
+
+    f.write(','.join(map(str, results)))
+    f.write('\n')
+
+
+
+def doDBTests(tables, templates, source, nRuns, db):
+    now = time.time()
+    snow = time.strftime("%b_%d_%Y_%H:%M:%S", time.gmtime())
+    cursor = db.getCursor()
+
+    for query in sorted(templates):
+        for table in tables:
+            cmd = db.generate_query(query, templates[query], source, table);
+            count = 1
+            while count <= nRuns:
+                etime, nrec = db.runcmd(cmd, cursor)
+
+                #print results
+                results = (snow, query, table, count, etime, nrec)
+                outputResults(results)
+                count += 1
+
+
+def doQuery(q, qname, tablename, nRuns):
+    snow = time.strftime("%b_%d_%Y_%H:%M:%S", time.gmtime())
     count = 1
     while count <= nRuns:
         start = datetime.datetime.now();
@@ -53,9 +165,10 @@ def doQuery(q, qname, C5Table, nRuns):
         end = datetime.datetime.now();
         td = end - start
         #print('r1 time', td.total_seconds())
-        results = (qname, C5Table, count, td.total_seconds(), len(r1))r.
-
-        print('\t'.join(map(str, results)))
+        #results = (qname, tablename, count, td.total_seconds(), len(r1))
+        results = (snow, qname, tablename, td.total_seconds(), len(r1))
+        outputResults(results)
+        #print('\t'.join(map(str, results)))
         count = count + 1
 
 # Query 1
