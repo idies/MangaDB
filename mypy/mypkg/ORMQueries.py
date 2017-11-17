@@ -81,6 +81,7 @@ def doAllTests(nRuns):
 def doFlatTests(nRuns):
     session = db.Session();
 
+
     flats = [suedb.FlatTableTest, suedb.FlatTableSSD, suedb.FlatTableCstore, suedb.FlatTableCstoreSSD]
 
     for Flattable in flats:
@@ -131,7 +132,7 @@ def outputResults(results):
     import time
     #moment = time.strftime("%Y-%b-%d__%H_%M_%S", time.localtime())
     moment = time.strftime("%Y-%b-%d_%H", time.localtime())
-    f = open('out' + moment + '.log', 'a')
+    f = open('noCACHE' + moment + '.log', 'a')
 
     f.write(','.join(map(str, results)))
     f.write('\n')
@@ -170,6 +171,28 @@ def doQuery(q, qname, tablename, nRuns):
         outputResults(results)
         #print('\t'.join(map(str, results)))
         count = count + 1
+
+def doMarvinTests(nRuns):
+    from marvin.tools import Query
+
+    p1 = 'emline_gflux_ha_6564 > 25'
+    p2 = 'npergood(spaxelprop.emline_gflux_ha_6564 > 5) >= 20'
+    p3 ='nsa.sersic_logmass >= 9.5 and nsa.sersic_logmass < 11 and nsa.sersic_n < 2 and emline_sew_ha_6564 > 6'
+    p4 ='nsa.z < 0.1 and haflux > 25'
+
+    mq = (p1, p2, p3, p4)
+
+    for p in sorted(mq):
+        count = 1
+        while count <= nRuns:
+            start = datetime.datetime.now();
+            q = Query(searchfilter=p)
+            r = q.run()
+            end = datetime.datetime.now();
+            td = end - start
+            results = (p, count, td.total_seconds(), r.query_runtime.total_seconds, len(r.results))
+            print('\t'.join(map(str, results)))
+            count = count + 1
 
 # Query 1
 def generateQ1(C5Table, session):
