@@ -142,7 +142,7 @@ class DatabaseConnection(object):
             me.metadata.bind = me.engine
             me.Base = declarative_base(bind=me.engine)
             me.Session = scoped_session(sessionmaker(bind=me.engine, autocommit=True,
-                                                     query_cls=caching_query.query_callable(regions),  ##take this out
+                                                     #query_cls=caching_query.query_callable(regions),  ##take this out
                                                      expire_on_commit=expire_on_commit))
             # ------------------------------------------------
 
