@@ -7,14 +7,20 @@ import mypkg.DBHelper as suedb
 import psycopg2;
 import os;
 import time;
-
-
-
+import logging;
 
 
 from sqlalchemy.orm import aliased
 from sqlalchemy import func
 import datetime
+
+
+
+
+
+
+
+
 
 class DBTester(object):
     c5templates = {
@@ -40,7 +46,8 @@ class DBTester(object):
 
     conn_string = "host='dsp064' dbname='manga' user='manga' password='20manga17'"
 
-    logname = 'suelog'
+
+
 
 
 
@@ -71,14 +78,38 @@ class DBTester(object):
         records = cursor.fetchall();
         return td.total_seconds(), len(records)
 
+
+def setupLog():
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.INFO)
+
+    os.chdir(os.path.dirname(__file__))
+    cwd = os.getcwd()
+    logdir = cwd + 'log'
+
+    filename = os.path.join(cwd, 'log', 'sue.log')
+
+    handler = logging.FileHandler(filename)
+    handler.setLevel(logging.INFO)
+
+    # create a logging format
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    handler.setFormatter(formatter)
+
+    logger.addHandler(handler)
+
+    return logger
+
 def doAllTests(nRuns):
 
-        doC5Tests(nRuns)
-        doFlatTests(nRuns)
-        doC5_db(nRuns)
-        doFlat_db(nRuns)
+        logger = setupLog()
 
-def doFlatTests(nRuns):
+        doC5Tests(nRuns, logger)
+        doFlatTests(nRuns, logger)
+        doC5_db(nRuns, logger)
+        doFlat_db(nRuns, logger)
+
+def doFlatTests(nRuns, logger):
     session = db.Session();
 
 
@@ -91,47 +122,48 @@ def doFlatTests(nRuns):
         doQuery(generateQ4Flat(Flattable, session), 'q4', Flattable.__tablename__, nRuns);
 
 
-def doC5Tests(nRuns):
+def doC5Tests(nRuns, logger):
+
 
     session = db.Session();
     c5s = [dapdb.CleanSpaxelProp5, suedb.C5SSD, suedb.C5cx, suedb.C5cxSSD, suedb.C5Cstore, suedb.C5CstoreSSD]
 
     for C5Table in c5s:
-        doQuery(generateQ1(C5Table, session),'q1',C5Table.__tablename__, nRuns);
-        doQuery(generateQ2(C5Table, session), 'q2', C5Table.__tablename__, nRuns);
-        doQuery(generateQ3(C5Table, session), 'q3', C5Table.__tablename__, nRuns);
-        doQuery(generateQ4(C5Table, session), 'q4', C5Table.__tablename__, nRuns);
+        doQuery(generateQ1(C5Table, session),'q1',C5Table.__tablename__, nRuns, logger);
+        doQuery(generateQ2(C5Table, session), 'q2', C5Table.__tablename__, nRuns, logger);
+        doQuery(generateQ3(C5Table, session), 'q3', C5Table.__tablename__, nRuns, logger);
+        doQuery(generateQ4(C5Table, session), 'q4', C5Table.__tablename__, nRuns, logger);
 
 
-def doC5_db(nRuns):
+def doC5_db(nRuns,logger):
 
     d = DBTester();
     templates = d.c5templates;
     tables = d.c5tables;
     source = d.c5source;
 
-    doDBTests(tables, templates, source, nRuns, d)
+    doDBTests(tables, templates, source, nRuns, d, logger)
 
     return
 
-def doFlat_db(nRuns):
+def doFlat_db(nRuns,logger):
     d = DBTester();
     templates = d.flattemplates
     tables = d.flattables
     source = d.flatsource
 
-    doDBTests(tables, templates, source, nRuns, d)
+    doDBTests(tables, templates, source, nRuns, d, logger)
     return
 
 def outputResults(results):
 
     #print
-    print('\t'.join(map(str, results)))
+    print(','.join(map(str, results)))
 
     #file
     import time
     #moment = time.strftime("%Y-%b-%d__%H_%M_%S", time.localtime())
-    moment = time.strftime("%Y-%b-%d_%H", time.localtime())
+    moment = time.strftime("%Y-%b-%d_%H_%M", time.localtime())
     f = open('noCACHE' + moment + '.log', 'a')
 
     f.write(','.join(map(str, results)))
@@ -139,7 +171,7 @@ def outputResults(results):
 
 
 
-def doDBTests(tables, templates, source, nRuns, db):
+def doDBTests(tables, templates, source, nRuns, db, logger):
     now = time.time()
     snow = time.strftime("%b_%d_%Y_%H:%M:%S", time.gmtime())
     cursor = db.getCursor()
@@ -154,10 +186,13 @@ def doDBTests(tables, templates, source, nRuns, db):
                 #print results
                 results = (snow, query, table, count, etime, nrec)
                 outputResults(results)
+
+                logger.info(','.join(map(str, results)))
+
                 count += 1
 
 
-def doQuery(q, qname, tablename, nRuns):
+def doQuery(q, qname, tablename, nRuns,logger):
     snow = time.strftime("%b_%d_%Y_%H:%M:%S", time.gmtime())
     count = 1
     while count <= nRuns:
@@ -169,11 +204,15 @@ def doQuery(q, qname, tablename, nRuns):
         #results = (qname, tablename, count, td.total_seconds(), len(r1))
         results = (snow, qname, tablename, td.total_seconds(), len(r1))
         outputResults(results)
+
         #print('\t'.join(map(str, results)))
+        logger.info(','.join(map(str, results)))
         count = count + 1
 
 def doMarvinTests(nRuns):
-    from marvin.tools import Query
+    from marvin.tools.query import Query
+
+    res = []
 
     p1 = 'emline_gflux_ha_6564 > 25'
     p2 = 'npergood(spaxelprop.emline_gflux_ha_6564 > 5) >= 20'
@@ -190,9 +229,14 @@ def doMarvinTests(nRuns):
             r = q.run()
             end = datetime.datetime.now();
             td = end - start
-            results = (p, count, td.total_seconds(), r.query_runtime.total_seconds, len(r.results))
-            print('\t'.join(map(str, results)))
+            results = (p, count, td.total_seconds(), r.query_runtime.total_seconds(), len(r.results))
+            res.append(results)
+            print(','.join(map(str, results)))
             count = count + 1
+    for r in res:
+        print('\t'.join(map(str, r)))
+    return r
+
 
 # Query 1
 def generateQ1(C5Table, session):
