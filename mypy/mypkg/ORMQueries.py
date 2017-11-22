@@ -64,7 +64,9 @@ class DBTester(object):
 
     def generate_query(self, query, templatefile, code, table):
         lines = []
-        with open(os.path.join('templates', templatefile)) as tfile:
+        os.chdir(os.path.dirname(__file__))
+        cwd = os.getcwd()
+        with open(os.path.join(cwd,'templates', templatefile)) as tfile:
             for line in tfile:
                 line = line.replace(code, table)
                 lines.append(line)
@@ -77,11 +79,11 @@ class DBTester(object):
         td = end - start;
         records = cursor.fetchall();
         return td.total_seconds(), len(records)
-
+logg
 
 def setupLog():
     logger = logging.getLogger(__name__)
-    logger.setLevel(logging.INFO)
+    logger.setLevel(logging.INF
 
     os.chdir(os.path.dirname(__file__))
     cwd = os.getcwd()
@@ -116,10 +118,10 @@ def doFlatTests(nRuns, logger):
     flats = [suedb.FlatTableTest, suedb.FlatTableSSD, suedb.FlatTableCstore, suedb.FlatTableCstoreSSD]
 
     for Flattable in flats:
-        doQuery(generateQ1Flat(Flattable, session),'q1',Flattable.__tablename__, nRuns);
-        doQuery(generateQ2Flat(Flattable, session), 'q2', Flattable.__tablename__, nRuns);
-        doQuery(generateQ3Flat(Flattable, session), 'q3', Flattable.__tablename__, nRuns);
-        doQuery(generateQ4Flat(Flattable, session), 'q4', Flattable.__tablename__, nRuns);
+        doQuery(generateQ1Flat(Flattable, session),'q1',Flattable.__tablename__, nRuns, logger);
+        doQuery(generateQ2Flat(Flattable, session), 'q2', Flattable.__tablename__, nRuns, logger);
+        doQuery(generateQ3Flat(Flattable, session), 'q3', Flattable.__tablename__, nRuns, logger);
+        doQuery(generateQ4Flat(Flattable, session), 'q4', Flattable.__tablename__, nRuns, logger);
 
 
 def doC5Tests(nRuns, logger):
@@ -163,11 +165,11 @@ def outputResults(results):
     #file
     import time
     #moment = time.strftime("%Y-%b-%d__%H_%M_%S", time.localtime())
-    moment = time.strftime("%Y-%b-%d_%H_%M", time.localtime())
-    f = open('noCACHE' + moment + '.log', 'a')
+    #moment = time.strftime("%Y-%b-%d_%H_%M", time.localtime())
+    #f = open('noCACHE' + moment + '.log', 'a')
 
-    f.write(','.join(map(str, results)))
-    f.write('\n')
+    #f.write(','.join(map(str, results)))
+    #f.write('\n')
 
 
 
