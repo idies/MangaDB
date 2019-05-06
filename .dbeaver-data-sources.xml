@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data-sources>
+	<data-source id="postgres-jdbc-16a8dd9e1c1-61aba6d777f9e9f4" provider="postgresql" driver="postgres-jdbc" name="PostgreSQL - manga" save-password="true" read-only="false">
+		<connection host="dsp064" port="5432" server="" database="manga" url="jdbc:postgresql://dsp064:5432/manga" user="swerner" password="AA0KdkRNUHbk" type="dev">
+			<provider-property name="@dbeaver-show-non-default-db@" value="false"/>
+			<provider-property name="@dbeaver-show-template-db@" value="false"/>
+		</connection>
+	</data-source>
+	<filters/>
+</data-sources>

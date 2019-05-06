@@ -1,0 +1,1106 @@
+{
+  "version": "1",
+  "signature": "PostgreSQL JDBC Driver",
+  "date": "2019-05-06T14:17:31.404",
+  "sql": "\r\nSELECT  --q3 original \r\n  mangadatadb.cube.mangaid                                        AS \"cube.mangaid\",\r\n  mangadatadb.cube.plate                                          AS \"cube.plate\",\r\n  concat(mangadatadb.cube.plate, \u0027-\u0027, mangadatadb.ifudesign.name) AS \"cube.plateifu\",\r\n  mangadatadb.ifudesign.name                                      AS \"ifu.name\",\r\n  mangadapdb.cleanspaxelprop5.emline_sew_ha_6564                  AS emline_sew_ha_6564,\r\n  mangasampledb.nsa.sersic_n                                      AS \"nsa.sersic_n\",\r\n  CAST(CASE WHEN (mangasampledb.nsa.sersic_mass \u003e 0.0)\r\n    THEN log(mangasampledb.nsa.sersic_mass)\r\n       WHEN (mangasampledb.nsa.sersic_mass \u003d 0.0)\r\n         THEN 0.0 END AS FLOAT)                                   AS \"nsa.sersic_logmass\",\r\n  mangadapdb.cleanspaxelprop5.x                                   AS \"spaxelprop.x\",\r\n  mangadapdb.cleanspaxelprop5.y                                   AS \"spaxelprop.y\"\r\nFROM mangadatadb.cube\r\n  JOIN mangadatadb.ifudesign ON mangadatadb.ifudesign.pk \u003d mangadatadb.cube.ifudesign_pk\r\n  JOIN mangadapdb.file ON mangadatadb.cube.pk \u003d mangadapdb.file.cube_pk\r\n  JOIN mangadapdb.cleanspaxelprop5 ON mangadapdb.file.pk \u003d mangadapdb.cleanspaxelprop5.file_pk\r\n  JOIN mangasampledb.manga_target ON mangasampledb.manga_target.pk \u003d mangadatadb.cube.manga_target_pk\r\n  JOIN mangasampledb.manga_target_to_nsa\r\n    ON mangasampledb.manga_target.pk \u003d mangasampledb.manga_target_to_nsa.manga_target_pk\r\n  JOIN mangasampledb.nsa ON mangasampledb.nsa.pk \u003d mangasampledb.manga_target_to_nsa.nsa_pk\r\n  JOIN mangadatadb.pipeline_info AS drpalias ON drpalias.pk \u003d mangadatadb.cube.pipeline_info_pk\r\n  JOIN mangadatadb.pipeline_info AS dapalias ON dapalias.pk \u003d mangadapdb.file.pipeline_info_pk\r\nWHERE CAST(CASE WHEN (mangasampledb.nsa.sersic_mass \u003e 0.0)\r\n  THEN log(mangasampledb.nsa.sersic_mass)\r\n           WHEN (mangasampledb.nsa.sersic_mass \u003d 0.0)\r\n             THEN 0.0 END AS FLOAT) \u003e\u003d 9.5 AND CAST(CASE WHEN (mangasampledb.nsa.sersic_mass \u003e 0.0)\r\n  THEN log(mangasampledb.nsa.sersic_mass)\r\n                                                    WHEN (mangasampledb.nsa.sersic_mass \u003d 0.0)\r\n                                                      THEN 0.0 END AS FLOAT) \u003c 11.0 AND mangasampledb.nsa.sersic_n \u003c 2.0\r\n      AND mangadapdb.cleanspaxelprop5.emline_sew_ha_6564 \u003e 6.0 AND drpalias.pk \u003d 25 AND dapalias.pk \u003d 26",
+  "root": [
+    {
+      "name": "",
+      "kind": "",
+      "type": "Nested Loop",
+      "cond": "",
+      "desc": "",
+      "attributes": [
+        {
+          "Parallel-Aware": "false"
+        },
+        {
+          "Join-Type": "Inner"
+        },
+        {
+          "Startup-Cost": "3016.36"
+        },
+        {
+          "Total-Cost": "13758.38"
+        },
+        {
+          "Plan-Rows": "676"
+        },
+        {
+          "Plan-Width": "80"
+        },
+        {
+          "Actual-Startup-Time": "597.548"
+        },
+        {
+          "Actual-Total-Time": "96911.407"
+        },
+        {
+          "Actual-Rows": "3702781"
+        },
+        {
+          "Actual-Loops": "1"
+        },
+        {
+          "Inner-Unique": "false"
+        }
+      ],
+      "child": [
+        {
+          "name": "pipeline_info",
+          "kind": "",
+          "type": "Seq Scan",
+          "cond": "(pk \u003d 26)",
+          "desc": "(pk \u003d 26)",
+          "attributes": [
+            {
+              "Parent-Relationship": "Outer"
+            },
+            {
+              "Parallel-Aware": "false"
+            },
+            {
+              "Relation-Name": "pipeline_info"
+            },
+            {
+              "Alias": "dapalias"
+            },
+            {
+              "Startup-Cost": "0.00"
+            },
+            {
+              "Total-Cost": "1.25"
+            },
+            {
+              "Plan-Rows": "1"
+            },
+            {
+              "Plan-Width": "4"
+            },
+            {
+              "Actual-Startup-Time": "0.011"
+            },
+            {
+              "Actual-Total-Time": "0.013"
+            },
+            {
+              "Actual-Rows": "1"
+            },
+            {
+              "Actual-Loops": "1"
+            },
+            {
+              "Filter": "(pk \u003d 26)"
+            },
+            {
+              "Rows-Removed-by-Filter": "19"
+            }
+          ],
+          "child": []
+        },
+        {
+          "name": "",
+          "kind": "",
+          "type": "Gather",
+          "cond": "",
+          "desc": "",
+          "attributes": [
+            {
+              "Parent-Relationship": "Inner"
+            },
+            {
+              "Parallel-Aware": "false"
+            },
+            {
+              "Startup-Cost": "3016.36"
+            },
+            {
+              "Total-Cost": "13743.61"
+            },
+            {
+              "Plan-Rows": "676"
+            },
+            {
+              "Plan-Width": "52"
+            },
+            {
+              "Actual-Startup-Time": "597.520"
+            },
+            {
+              "Actual-Total-Time": "90286.873"
+            },
+            {
+              "Actual-Rows": "3702781"
+            },
+            {
+              "Actual-Loops": "1"
+            },
+            {
+              "Workers-Planned": "1"
+            },
+            {
+              "Workers-Launched": "1"
+            },
+            {
+              "Single-Copy": "false"
+            }
+          ],
+          "child": [
+            {
+              "name": "",
+              "kind": "",
+              "type": "Nested Loop",
+              "cond": "",
+              "desc": "",
+              "attributes": [
+                {
+                  "Parent-Relationship": "Outer"
+                },
+                {
+                  "Parallel-Aware": "false"
+                },
+                {
+                  "Join-Type": "Inner"
+                },
+                {
+                  "Startup-Cost": "2016.36"
+                },
+                {
+                  "Total-Cost": "12676.01"
+                },
+                {
+                  "Plan-Rows": "398"
+                },
+                {
+                  "Plan-Width": "52"
+                },
+                {
+                  "Actual-Startup-Time": "424.352"
+                },
+                {
+                  "Actual-Total-Time": "86065.025"
+                },
+                {
+                  "Actual-Rows": "1851390"
+                },
+                {
+                  "Actual-Loops": "2"
+                },
+                {
+                  "Inner-Unique": "false"
+                }
+              ],
+              "child": [
+                {
+                  "name": "",
+                  "kind": "",
+                  "type": "Nested Loop",
+                  "cond": "",
+                  "desc": "",
+                  "attributes": [
+                    {
+                      "Parent-Relationship": "Outer"
+                    },
+                    {
+                      "Parallel-Aware": "false"
+                    },
+                    {
+                      "Join-Type": "Inner"
+                    },
+                    {
+                      "Startup-Cost": "2015.93"
+                    },
+                    {
+                      "Total-Cost": "7791.85"
+                    },
+                    {
+                      "Plan-Rows": "4"
+                    },
+                    {
+                      "Plan-Width": "40"
+                    },
+                    {
+                      "Actual-Startup-Time": "378.910"
+                    },
+                    {
+                      "Actual-Total-Time": "8569.769"
+                    },
+                    {
+                      "Actual-Rows": "2592"
+                    },
+                    {
+                      "Actual-Loops": "2"
+                    },
+                    {
+                      "Inner-Unique": "false"
+                    }
+                  ],
+                  "child": [
+                    {
+                      "name": "",
+                      "kind": "",
+                      "type": "Nested Loop",
+                      "cond": "",
+                      "desc": "",
+                      "attributes": [
+                        {
+                          "Parent-Relationship": "Outer"
+                        },
+                        {
+                          "Parallel-Aware": "false"
+                        },
+                        {
+                          "Join-Type": "Inner"
+                        },
+                        {
+                          "Startup-Cost": "2015.93"
+                        },
+                        {
+                          "Total-Cost": "7786.81"
+                        },
+                        {
+                          "Plan-Rows": "4"
+                        },
+                        {
+                          "Plan-Width": "44"
+                        },
+                        {
+                          "Actual-Startup-Time": "378.889"
+                        },
+                        {
+                          "Actual-Total-Time": "8545.587"
+                        },
+                        {
+                          "Actual-Rows": "2592"
+                        },
+                        {
+                          "Actual-Loops": "2"
+                        },
+                        {
+                          "Inner-Unique": "true"
+                        }
+                      ],
+                      "child": [
+                        {
+                          "name": "",
+                          "kind": "",
+                          "type": "Nested Loop",
+                          "cond": "",
+                          "desc": "",
+                          "attributes": [
+                            {
+                              "Parent-Relationship": "Outer"
+                            },
+                            {
+                              "Parallel-Aware": "false"
+                            },
+                            {
+                              "Join-Type": "Inner"
+                            },
+                            {
+                              "Startup-Cost": "2015.79"
+                            },
+                            {
+                              "Total-Cost": "7786.18"
+                            },
+                            {
+                              "Plan-Rows": "4"
+                            },
+                            {
+                              "Plan-Width": "44"
+                            },
+                            {
+                              "Actual-Startup-Time": "375.567"
+                            },
+                            {
+                              "Actual-Total-Time": "8520.399"
+                            },
+                            {
+                              "Actual-Rows": "2592"
+                            },
+                            {
+                              "Actual-Loops": "2"
+                            },
+                            {
+                              "Inner-Unique": "false"
+                            }
+                          ],
+                          "child": [
+                            {
+                              "name": "",
+                              "kind": "",
+                              "type": "Nested Loop",
+                              "cond": "",
+                              "desc": "",
+                              "attributes": [
+                                {
+                                  "Parent-Relationship": "Outer"
+                                },
+                                {
+                                  "Parallel-Aware": "false"
+                                },
+                                {
+                                  "Join-Type": "Inner"
+                                },
+                                {
+                                  "Startup-Cost": "2015.50"
+                                },
+                                {
+                                  "Total-Cost": "7771.87"
+                                },
+                                {
+                                  "Plan-Rows": "5"
+                                },
+                                {
+                                  "Plan-Width": "40"
+                                },
+                                {
+                                  "Actual-Startup-Time": "363.272"
+                                },
+                                {
+                                  "Actual-Total-Time": "7314.146"
+                                },
+                                {
+                                  "Actual-Rows": "324"
+                                },
+                                {
+                                  "Actual-Loops": "2"
+                                },
+                                {
+                                  "Inner-Unique": "true"
+                                }
+                              ],
+                              "child": [
+                                {
+                                  "name": "",
+                                  "kind": "",
+                                  "type": "Hash Join",
+                                  "cond": "(manga_target.pk \u003d manga_target_to_nsa.manga_target_pk)",
+                                  "desc": "",
+                                  "attributes": [
+                                    {
+                                      "Parent-Relationship": "Outer"
+                                    },
+                                    {
+                                      "Parallel-Aware": "false"
+                                    },
+                                    {
+                                      "Join-Type": "Inner"
+                                    },
+                                    {
+                                      "Startup-Cost": "2015.21"
+                                    },
+                                    {
+                                      "Total-Cost": "3494.63"
+                                    },
+                                    {
+                                      "Plan-Rows": "2437"
+                                    },
+                                    {
+                                      "Plan-Width": "28"
+                                    },
+                                    {
+                                      "Actual-Startup-Time": "331.141"
+                                    },
+                                    {
+                                      "Actual-Total-Time": "423.382"
+                                    },
+                                    {
+                                      "Actual-Rows": "1390"
+                                    },
+                                    {
+                                      "Actual-Loops": "2"
+                                    },
+                                    {
+                                      "Inner-Unique": "false"
+                                    },
+                                    {
+                                      "Hash-Cond": "(manga_target.pk \u003d manga_target_to_nsa.manga_target_pk)"
+                                    }
+                                  ],
+                                  "child": [
+                                    {
+                                      "name": "",
+                                      "kind": "",
+                                      "type": "Merge Join",
+                                      "cond": "",
+                                      "desc": "",
+                                      "attributes": [
+                                        {
+                                          "Parent-Relationship": "Outer"
+                                        },
+                                        {
+                                          "Parallel-Aware": "false"
+                                        },
+                                        {
+                                          "Join-Type": "Inner"
+                                        },
+                                        {
+                                          "Startup-Cost": "862.54"
+                                        },
+                                        {
+                                          "Total-Cost": "2306.95"
+                                        },
+                                        {
+                                          "Plan-Rows": "2838"
+                                        },
+                                        {
+                                          "Plan-Width": "32"
+                                        },
+                                        {
+                                          "Actual-Startup-Time": "194.037"
+                                        },
+                                        {
+                                          "Actual-Total-Time": "278.357"
+                                        },
+                                        {
+                                          "Actual-Rows": "2412"
+                                        },
+                                        {
+                                          "Actual-Loops": "2"
+                                        },
+                                        {
+                                          "Inner-Unique": "false"
+                                        },
+                                        {
+                                          "Merge-Cond": "(manga_target.pk \u003d cube.manga_target_pk)"
+                                        }
+                                      ],
+                                      "child": [
+                                        {
+                                          "name": "manga_target",
+                                          "kind": "",
+                                          "type": "Index Only Scan",
+                                          "cond": "",
+                                          "desc": "",
+                                          "attributes": [
+                                            {
+                                              "Parent-Relationship": "Outer"
+                                            },
+                                            {
+                                              "Parallel-Aware": "true"
+                                            },
+                                            {
+                                              "Scan-Direction": "Forward"
+                                            },
+                                            {
+                                              "Index-Name": "manga_target_pkey"
+                                            },
+                                            {
+                                              "Relation-Name": "manga_target"
+                                            },
+                                            {
+                                              "Alias": "manga_target"
+                                            },
+                                            {
+                                              "Startup-Cost": "0.29"
+                                            },
+                                            {
+                                              "Total-Cost": "1322.25"
+                                            },
+                                            {
+                                              "Plan-Rows": "28268"
+                                            },
+                                            {
+                                              "Plan-Width": "4"
+                                            },
+                                            {
+                                              "Actual-Startup-Time": "0.378"
+                                            },
+                                            {
+                                              "Actual-Total-Time": "73.568"
+                                            },
+                                            {
+                                              "Actual-Rows": "24028"
+                                            },
+                                            {
+                                              "Actual-Loops": "2"
+                                            },
+                                            {
+                                              "Heap-Fetches": "23424"
+                                            }
+                                          ],
+                                          "child": []
+                                        },
+                                        {
+                                          "name": "",
+                                          "kind": "",
+                                          "type": "Sort",
+                                          "cond": "",
+                                          "desc": "",
+                                          "attributes": [
+                                            {
+                                              "Parent-Relationship": "Inner"
+                                            },
+                                            {
+                                              "Parallel-Aware": "false"
+                                            },
+                                            {
+                                              "Startup-Cost": "862.11"
+                                            },
+                                            {
+                                              "Total-Cost": "874.17"
+                                            },
+                                            {
+                                              "Plan-Rows": "4824"
+                                            },
+                                            {
+                                              "Plan-Width": "28"
+                                            },
+                                            {
+                                              "Actual-Startup-Time": "193.624"
+                                            },
+                                            {
+                                              "Actual-Total-Time": "196.676"
+                                            },
+                                            {
+                                              "Actual-Rows": "4688"
+                                            },
+                                            {
+                                              "Actual-Loops": "2"
+                                            },
+                                            {
+                                              "Sort-Key": "\n                                            cube.manga_target_pk\n                                          "
+                                            },
+                                            {
+                                              "Sort-Method": "quicksort"
+                                            },
+                                            {
+                                              "Sort-Space-Used": "569"
+                                            },
+                                            {
+                                              "Sort-Space-Type": "Memory"
+                                            }
+                                          ],
+                                          "child": [
+                                            {
+                                              "name": "cube",
+                                              "kind": "",
+                                              "type": "Bitmap Heap Scan",
+                                              "cond": "",
+                                              "desc": "",
+                                              "attributes": [
+                                                {
+                                                  "Parent-Relationship": "Outer"
+                                                },
+                                                {
+                                                  "Parallel-Aware": "false"
+                                                },
+                                                {
+                                                  "Relation-Name": "cube"
+                                                },
+                                                {
+                                                  "Alias": "cube"
+                                                },
+                                                {
+                                                  "Startup-Cost": "93.67"
+                                                },
+                                                {
+                                                  "Total-Cost": "566.97"
+                                                },
+                                                {
+                                                  "Plan-Rows": "4824"
+                                                },
+                                                {
+                                                  "Plan-Width": "28"
+                                                },
+                                                {
+                                                  "Actual-Startup-Time": "14.863"
+                                                },
+                                                {
+                                                  "Actual-Total-Time": "190.424"
+                                                },
+                                                {
+                                                  "Actual-Rows": "4824"
+                                                },
+                                                {
+                                                  "Actual-Loops": "2"
+                                                },
+                                                {
+                                                  "Recheck-Cond": "(pipeline_info_pk \u003d 25)"
+                                                },
+                                                {
+                                                  "Rows-Removed-by-Index-Recheck": "0"
+                                                },
+                                                {
+                                                  "Exact-Heap-Blocks": "368"
+                                                },
+                                                {
+                                                  "Lossy-Heap-Blocks": "0"
+                                                }
+                                              ],
+                                              "child": [
+                                                {
+                                                  "name": "pipelineinfo_pk_idx",
+                                                  "kind": "",
+                                                  "type": "Bitmap Index Scan",
+                                                  "cond": "(pipeline_info_pk \u003d 25)",
+                                                  "desc": "",
+                                                  "attributes": [
+                                                    {
+                                                      "Parent-Relationship": "Outer"
+                                                    },
+                                                    {
+                                                      "Parallel-Aware": "false"
+                                                    },
+                                                    {
+                                                      "Index-Name": "pipelineinfo_pk_idx"
+                                                    },
+                                                    {
+                                                      "Startup-Cost": "0.00"
+                                                    },
+                                                    {
+                                                      "Total-Cost": "92.47"
+                                                    },
+                                                    {
+                                                      "Plan-Rows": "4824"
+                                                    },
+                                                    {
+                                                      "Plan-Width": "0"
+                                                    },
+                                                    {
+                                                      "Actual-Startup-Time": "10.410"
+                                                    },
+                                                    {
+                                                      "Actual-Total-Time": "10.410"
+                                                    },
+                                                    {
+                                                      "Actual-Rows": "4824"
+                                                    },
+                                                    {
+                                                      "Actual-Loops": "2"
+                                                    },
+                                                    {
+                                                      "Index-Cond": "(pipeline_info_pk \u003d 25)"
+                                                    }
+                                                  ],
+                                                  "child": []
+                                                }
+                                              ]
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "name": "",
+                                      "kind": "",
+                                      "type": "Hash",
+                                      "cond": "",
+                                      "desc": "",
+                                      "attributes": [
+                                        {
+                                          "Parent-Relationship": "Inner"
+                                        },
+                                        {
+                                          "Parallel-Aware": "false"
+                                        },
+                                        {
+                                          "Startup-Cost": "636.74"
+                                        },
+                                        {
+                                          "Total-Cost": "636.74"
+                                        },
+                                        {
+                                          "Plan-Rows": "41274"
+                                        },
+                                        {
+                                          "Plan-Width": "8"
+                                        },
+                                        {
+                                          "Actual-Startup-Time": "123.535"
+                                        },
+                                        {
+                                          "Actual-Total-Time": "123.535"
+                                        },
+                                        {
+                                          "Actual-Rows": "41274"
+                                        },
+                                        {
+                                          "Actual-Loops": "2"
+                                        },
+                                        {
+                                          "Hash-Buckets": "65536"
+                                        },
+                                        {
+                                          "Original-Hash-Buckets": "65536"
+                                        },
+                                        {
+                                          "Hash-Batches": "1"
+                                        },
+                                        {
+                                          "Original-Hash-Batches": "1"
+                                        },
+                                        {
+                                          "Peak-Memory-Usage": "2125"
+                                        }
+                                      ],
+                                      "child": [
+                                        {
+                                          "name": "manga_target_to_nsa",
+                                          "kind": "",
+                                          "type": "Seq Scan",
+                                          "cond": "",
+                                          "desc": "",
+                                          "attributes": [
+                                            {
+                                              "Parent-Relationship": "Outer"
+                                            },
+                                            {
+                                              "Parallel-Aware": "false"
+                                            },
+                                            {
+                                              "Relation-Name": "manga_target_to_nsa"
+                                            },
+                                            {
+                                              "Alias": "manga_target_to_nsa"
+                                            },
+                                            {
+                                              "Startup-Cost": "0.00"
+                                            },
+                                            {
+                                              "Total-Cost": "636.74"
+                                            },
+                                            {
+                                              "Plan-Rows": "41274"
+                                            },
+                                            {
+                                              "Plan-Width": "8"
+                                            },
+                                            {
+                                              "Actual-Startup-Time": "2.788"
+                                            },
+                                            {
+                                              "Actual-Total-Time": "112.176"
+                                            },
+                                            {
+                                              "Actual-Rows": "41274"
+                                            },
+                                            {
+                                              "Actual-Loops": "2"
+                                            }
+                                          ],
+                                          "child": []
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "name": "nsa",
+                                  "kind": "",
+                                  "type": "Index Scan",
+                                  "cond": "(pk \u003d manga_target_to_nsa.nsa_pk)",
+                                  "desc": "((sersic_n \u003c \u00272\u0027::double precision) AND (CASE WHEN (sersic_mass \u003e \u00270\u0027::double precision) THEN log(sersic_mass) WHEN (sersic_mass \u003d \u00270\u0027::double precision) THEN \u00270\u0027::double precision ELSE NULL::double precision END \u003e\u003d \u00279.5\u0027::double precision) AND (CASE WHEN (sersic_mass \u003e \u00270\u0027::double precision) THEN log(sersic_mass) WHEN (sersic_mass \u003d \u00270\u0027::double precision) THEN \u00270\u0027::double precision ELSE NULL::double precision END \u003c \u002711\u0027::double precision))",
+                                  "attributes": [
+                                    {
+                                      "Parent-Relationship": "Inner"
+                                    },
+                                    {
+                                      "Parallel-Aware": "false"
+                                    },
+                                    {
+                                      "Scan-Direction": "Forward"
+                                    },
+                                    {
+                                      "Index-Name": "nsa_pkey"
+                                    },
+                                    {
+                                      "Relation-Name": "nsa"
+                                    },
+                                    {
+                                      "Alias": "nsa"
+                                    },
+                                    {
+                                      "Startup-Cost": "0.29"
+                                    },
+                                    {
+                                      "Total-Cost": "1.76"
+                                    },
+                                    {
+                                      "Plan-Rows": "1"
+                                    },
+                                    {
+                                      "Plan-Width": "20"
+                                    },
+                                    {
+                                      "Actual-Startup-Time": "4.955"
+                                    },
+                                    {
+                                      "Actual-Total-Time": "4.955"
+                                    },
+                                    {
+                                      "Actual-Rows": "0"
+                                    },
+                                    {
+                                      "Actual-Loops": "2780"
+                                    },
+                                    {
+                                      "Index-Cond": "(pk \u003d manga_target_to_nsa.nsa_pk)"
+                                    },
+                                    {
+                                      "Rows-Removed-by-Index-Recheck": "0"
+                                    },
+                                    {
+                                      "Filter": "((sersic_n \u003c \u00272\u0027::double precision) AND (CASE WHEN (sersic_mass \u003e \u00270\u0027::double precision) THEN log(sersic_mass) WHEN (sersic_mass \u003d \u00270\u0027::double precision) THEN \u00270\u0027::double precision ELSE NULL::double precision END \u003e\u003d \u00279.5\u0027::double precision) AND (CASE WHEN (sersic_mass \u003e \u00270\u0027::double precision) THEN log(sersic_mass) WHEN (sersic_mass \u003d \u00270\u0027::double precision) THEN \u00270\u0027::double precision ELSE NULL::double precision END \u003c \u002711\u0027::double precision))"
+                                    },
+                                    {
+                                      "Rows-Removed-by-Filter": "1"
+                                    }
+                                  ],
+                                  "child": []
+                                }
+                              ]
+                            },
+                            {
+                              "name": "file",
+                              "kind": "",
+                              "type": "Index Scan",
+                              "cond": "(cube_pk \u003d cube.pk)",
+                              "desc": "(pipeline_info_pk \u003d 26)",
+                              "attributes": [
+                                {
+                                  "Parent-Relationship": "Inner"
+                                },
+                                {
+                                  "Parallel-Aware": "false"
+                                },
+                                {
+                                  "Scan-Direction": "Forward"
+                                },
+                                {
+                                  "Index-Name": "cube_pk_idx"
+                                },
+                                {
+                                  "Relation-Name": "file"
+                                },
+                                {
+                                  "Alias": "file"
+                                },
+                                {
+                                  "Startup-Cost": "0.29"
+                                },
+                                {
+                                  "Total-Cost": "2.84"
+                                },
+                                {
+                                  "Plan-Rows": "2"
+                                },
+                                {
+                                  "Plan-Width": "12"
+                                },
+                                {
+                                  "Actual-Startup-Time": "1.614"
+                                },
+                                {
+                                  "Actual-Total-Time": "3.709"
+                                },
+                                {
+                                  "Actual-Rows": "8"
+                                },
+                                {
+                                  "Actual-Loops": "649"
+                                },
+                                {
+                                  "Index-Cond": "(cube_pk \u003d cube.pk)"
+                                },
+                                {
+                                  "Rows-Removed-by-Index-Recheck": "0"
+                                },
+                                {
+                                  "Filter": "(pipeline_info_pk \u003d 26)"
+                                },
+                                {
+                                  "Rows-Removed-by-Filter": "0"
+                                }
+                              ],
+                              "child": []
+                            }
+                          ]
+                        },
+                        {
+                          "name": "ifudesign",
+                          "kind": "",
+                          "type": "Index Scan",
+                          "cond": "(pk \u003d cube.ifudesign_pk)",
+                          "desc": "",
+                          "attributes": [
+                            {
+                              "Parent-Relationship": "Inner"
+                            },
+                            {
+                              "Parallel-Aware": "false"
+                            },
+                            {
+                              "Scan-Direction": "Forward"
+                            },
+                            {
+                              "Index-Name": "ifudesign_pkey"
+                            },
+                            {
+                              "Relation-Name": "ifudesign"
+                            },
+                            {
+                              "Alias": "ifudesign"
+                            },
+                            {
+                              "Startup-Cost": "0.14"
+                            },
+                            {
+                              "Total-Cost": "0.16"
+                            },
+                            {
+                              "Plan-Rows": "1"
+                            },
+                            {
+                              "Plan-Width": "8"
+                            },
+                            {
+                              "Actual-Startup-Time": "0.006"
+                            },
+                            {
+                              "Actual-Total-Time": "0.006"
+                            },
+                            {
+                              "Actual-Rows": "1"
+                            },
+                            {
+                              "Actual-Loops": "5184"
+                            },
+                            {
+                              "Index-Cond": "(pk \u003d cube.ifudesign_pk)"
+                            },
+                            {
+                              "Rows-Removed-by-Index-Recheck": "0"
+                            }
+                          ],
+                          "child": []
+                        }
+                      ]
+                    },
+                    {
+                      "name": "pipeline_info",
+                      "kind": "",
+                      "type": "Seq Scan",
+                      "cond": "(pk \u003d 25)",
+                      "desc": "(pk \u003d 25)",
+                      "attributes": [
+                        {
+                          "Parent-Relationship": "Inner"
+                        },
+                        {
+                          "Parallel-Aware": "false"
+                        },
+                        {
+                          "Relation-Name": "pipeline_info"
+                        },
+                        {
+                          "Alias": "drpalias"
+                        },
+                        {
+                          "Startup-Cost": "0.00"
+                        },
+                        {
+                          "Total-Cost": "1.25"
+                        },
+                        {
+                          "Plan-Rows": "1"
+                        },
+                        {
+                          "Plan-Width": "4"
+                        },
+                        {
+                          "Actual-Startup-Time": "0.004"
+                        },
+                        {
+                          "Actual-Total-Time": "0.006"
+                        },
+                        {
+                          "Actual-Rows": "1"
+                        },
+                        {
+                          "Actual-Loops": "5184"
+                        },
+                        {
+                          "Filter": "(pk \u003d 25)"
+                        },
+                        {
+                          "Rows-Removed-by-Filter": "19"
+                        }
+                      ],
+                      "child": []
+                    }
+                  ]
+                },
+                {
+                  "name": "cleanspaxelprop5",
+                  "kind": "",
+                  "type": "Index Scan",
+                  "cond": "(file_pk \u003d file.pk)",
+                  "desc": "(emline_sew_ha_6564 \u003e \u00276\u0027::double precision)",
+                  "attributes": [
+                    {
+                      "Parent-Relationship": "Inner"
+                    },
+                    {
+                      "Parallel-Aware": "false"
+                    },
+                    {
+                      "Scan-Direction": "Forward"
+                    },
+                    {
+                      "Index-Name": "clean_file5_pk_idx"
+                    },
+                    {
+                      "Relation-Name": "cleanspaxelprop5"
+                    },
+                    {
+                      "Alias": "cleanspaxelprop5"
+                    },
+                    {
+                      "Startup-Cost": "0.43"
+                    },
+                    {
+                      "Total-Cost": "1213.67"
+                    },
+                    {
+                      "Plan-Rows": "737"
+                    },
+                    {
+                      "Plan-Width": "20"
+                    },
+                    {
+                      "Actual-Startup-Time": "8.160"
+                    },
+                    {
+                      "Actual-Total-Time": "27.871"
+                    },
+                    {
+                      "Actual-Rows": "714"
+                    },
+                    {
+                      "Actual-Loops": "5184"
+                    },
+                    {
+                      "Index-Cond": "(file_pk \u003d file.pk)"
+                    },
+                    {
+                      "Rows-Removed-by-Index-Recheck": "0"
+                    },
+                    {
+                      "Filter": "(emline_sew_ha_6564 \u003e \u00276\u0027::double precision)"
+                    },
+                    {
+                      "Rows-Removed-by-Filter": "146"
+                    }
+                  ],
+                  "child": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
