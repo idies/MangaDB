@@ -40,18 +40,18 @@ WHERE CAST(CASE WHEN (mangasampledb.nsa.sersic_mass > 0.0)
   suetest.cube.plate                                          AS "cube.plate",
   concat(suetest.cube.plate, '-', mangadatadb.ifudesign.name) AS "cube.plateifu",
   mangadatadb.ifudesign.name                                      AS "ifu.name",
-  suetest.cleanspaxelprop5_pt.emline_sew_ha_6564                  AS emline_sew_ha_6564,
+  mangadapdb.cleanspaxelprop5.emline_sew_ha_6564                  AS emline_sew_ha_6564,
   suetest.nsa.sersic_n                                      AS "nsa.sersic_n",
   CAST(CASE WHEN (suetest.nsa.sersic_mass > 0.0)
     THEN log(suetest.nsa.sersic_mass)
        WHEN (suetest.nsa.sersic_mass = 0.0)
          THEN 0.0 END AS FLOAT)                                   AS "nsa.sersic_logmass",
-  suetest.cleanspaxelprop5_pt.x                                   AS "spaxelprop.x",
-  suetest.cleanspaxelprop5_pt.y                                   AS "spaxelprop.y"
+  mangadapdb.cleanspaxelprop5.x                                   AS "spaxelprop.x",
+  mangadapdb.cleanspaxelprop5.y                                   AS "spaxelprop.y"
 FROM suetest.cube
   JOIN mangadatadb.ifudesign ON mangadatadb.ifudesign.pk = suetest.cube.ifudesign_pk
   JOIN suetest.file ON suetest.cube.pk = suetest.file.cube_pk
-  JOIN suetest.cleanspaxelprop5_pt ON suetest.file.pk = suetest.cleanspaxelprop5_pt.file_pk
+  JOIN mangadapdb.cleanspaxelprop5 ON suetest.file.pk = mangadapdb.cleanspaxelprop5.file_pk
   JOIN suetest.manga_target ON suetest.manga_target.pk = suetest.cube.manga_target_pk
   JOIN suetest.manga_target_to_nsa
     ON suetest.manga_target.pk = suetest.manga_target_to_nsa.manga_target_pk
@@ -67,6 +67,6 @@ WHERE
                                                    WHEN (suetest.nsa.sersic_mass = 0.0)
                                                       THEN 0.0 END AS FLOAT) < 11.0 AND suetest.nsa.sersic_n < 2.0
       AND 
-     suetest.cleanspaxelprop5_pt.emline_sew_ha_6564 > 6.0 AND drpalias.pk = 25 AND dapalias.pk = 26;
+     mangadapdb.cleanspaxelprop5.emline_sew_ha_6564 > 6.0 AND drpalias.pk = 25 AND dapalias.pk = 26;
      
 

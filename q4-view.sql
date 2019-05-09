@@ -30,21 +30,21 @@ SELECT  --suetest q4
   suetest.cube.plate                                          AS "cube.plate",
   concat(suetest.cube.plate, '-', mangadatadb.ifudesign.name) AS "cube.plateifu",
   mangadatadb.ifudesign.name                                      AS "ifu.name",
-  suetest.cleanspaxelprop5.emline_gflux_ha_6564                AS emline_gflux_ha_6564,
+  mangadapdb.cleanspaxelprop5.emline_gflux_ha_6564                AS emline_gflux_ha_6564,
   suetest.nsa.z                                             AS "nsa.z",
-  suetest.cleanspaxelprop5.x                                   AS "spaxelprop.x",
-  suetest.cleanspaxelprop5.y                                   AS "spaxelprop.y"
+  mangadapdb.cleanspaxelprop5.x                                   AS "spaxelprop.x",
+  mangadapdb.cleanspaxelprop5.y                                   AS "spaxelprop.y"
 FROM suetest.cube
   JOIN mangadatadb.ifudesign ON mangadatadb.ifudesign.pk = suetest.cube.ifudesign_pk
   JOIN suetest.file ON suetest.cube.pk = suetest.file.cube_pk
-  JOIN suetest.cleanspaxelprop5 ON suetest.file.pk = suetest.cleanspaxelprop5.file_pk
+  JOIN mangadapdb.cleanspaxelprop5 ON suetest.file.pk = mangadapdb.cleanspaxelprop5.file_pk
   JOIN suetest.manga_target ON suetest.manga_target.pk = suetest.cube.manga_target_pk
   JOIN suetest.manga_target_to_nsa
     ON suetest.manga_target.pk = suetest.manga_target_to_nsa.manga_target_pk
   JOIN suetest.nsa ON suetest.nsa.pk = suetest.manga_target_to_nsa.nsa_pk
   JOIN mangadatadb.pipeline_info AS drpalias ON drpalias.pk = suetest.cube.pipeline_info_pk
   JOIN mangadatadb.pipeline_info AS dapalias ON dapalias.pk = suetest.file.pipeline_info_pk
-WHERE suetest.nsa.z < 0.1 AND suetest.cleanspaxelprop5.emline_gflux_ha_6564 > 25.0 AND drpalias.pk = 25 AND
+WHERE suetest.nsa.z < 0.1 AND mangadapdb.cleanspaxelprop5.emline_gflux_ha_6564 > 25.0 AND drpalias.pk = 25 AND
       dapalias.pk = 26;
      
 SELECT  --suetest q4 part
@@ -52,21 +52,21 @@ SELECT  --suetest q4 part
   suetest.cube.plate                                          AS "cube.plate",
   concat(suetest.cube.plate, '-', mangadatadb.ifudesign.name) AS "cube.plateifu",
   mangadatadb.ifudesign.name                                      AS "ifu.name",
-  suetest.cleanspaxelprop5.emline_gflux_ha_6564                AS emline_gflux_ha_6564,
+  mangadapdb.cleanspaxelprop5.emline_gflux_ha_6564                AS emline_gflux_ha_6564,
   suetest.nsa.z                                             AS "nsa.z",
-  suetest.cleanspaxelprop5.x                                   AS "spaxelprop.x",
-  suetest.cleanspaxelprop5.y                                   AS "spaxelprop.y"
+  mangadapdb.cleanspaxelprop5.x                                   AS "spaxelprop.x",
+  mangadapdb.cleanspaxelprop5.y                                   AS "spaxelprop.y"
 FROM suetest.cube
   JOIN mangadatadb.ifudesign ON mangadatadb.ifudesign.pk = suetest.cube.ifudesign_pk
   JOIN suetest.file ON suetest.cube.pk = suetest.file.cube_pk
-  JOIN suetest.cleanspaxelprop5 ON suetest.file.pk = suetest.cleanspaxelprop5.file_pk
+  JOIN mangadapdb.cleanspaxelprop5 ON suetest.file.pk = mangadapdb.cleanspaxelprop5.file_pk
   JOIN suetest.manga_target ON suetest.manga_target.pk = suetest.cube.manga_target_pk
   JOIN suetest.manga_target_to_nsa
     ON suetest.manga_target.pk = suetest.manga_target_to_nsa.manga_target_pk
   JOIN suetest.nsa ON suetest.nsa.pk = suetest.manga_target_to_nsa.nsa_pk
   JOIN mangadatadb.pipeline_info AS drpalias ON drpalias.pk = suetest.cube.pipeline_info_pk
   JOIN mangadatadb.pipeline_info AS dapalias ON dapalias.pk = suetest.file.pipeline_info_pk
-WHERE suetest.nsa.z < 0.1 AND suetest.cleanspaxelprop5.emline_gflux_ha_6564 > 25.0 AND drpalias.pk = 25 AND
+WHERE suetest.nsa.z < 0.1 AND mangadapdb.cleanspaxelprop5.emline_gflux_ha_6564 > 25.0 AND drpalias.pk = 25 AND
       dapalias.pk = 26;
 
      
