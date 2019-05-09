@@ -406,51 +406,51 @@ select * from suetest.cleanspaxelprop5_pt
 select * from suetest.cleanspaxelprop5_pt
 
 
-create unique index c5_p1_pk on suetest.c5_p1 using btree(pk);
-CREATE INDEX ON suetest.c5_p1 USING btree (binid);
-CREATE INDEX ON suetest.c5_p1 USING btree (specindex_d4000);
-CREATE INDEX on suetest.c5_p1 USING btree (emline_gflux_ha_6564);
-CREATE INDEX  on suetest.c5_p1 USING btree (emline_gflux_hb_4862);
-CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_ha_6564);
-CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_hb_4862);
-CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_nii_6585);
-CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_oi_6302);
-CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_oiid_3728);
-CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_oiii_5008);
-CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_sii_6718);
-CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_sii_6732);
-CREATE INDEX ON suetest.c5_p1 USING btree (emline_gflux_nii_6585);
-CREATE INDEX ON suetest.c5_p1 USING btree (emline_gflux_oi_6302);
-CREATE INDEX ON suetest.c5_p1 USING btree (emline_gflux_oiid_3728);
-CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_oiii_5008);
-CREATE INDEX ON suetest.c5_p1 USING btree (emline_gflux_sii_6718);
-CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_sii_6732);
-CREATE INDEX  ON suetest.c5_p1 USING btree (file_pk);
-CREATE INDEX  ON suetest.c5_p1 USING btree (spaxel_index);
-CREATE INDEX ON suetest.c5_p1 USING btree (stellar_vel);
+create unique index c5_f1_pk on suetest.c5_f1 using btree(pk);
+CREATE INDEX ON suetest.c5_f1 USING btree (binid);
+CREATE INDEX ON suetest.c5_f1 USING btree (specindex_d4000);
+CREATE INDEX on suetest.c5_f1 USING btree (emline_gflux_ha_6564);
+CREATE INDEX  on suetest.c5_f1 USING btree (emline_gflux_hb_4862);
+CREATE INDEX  ON suetest.c5_f1 USING btree (emline_gflux_ivar_ha_6564);
+CREATE INDEX  ON suetest.c5_f1 USING btree (emline_gflux_ivar_hb_4862);
+CREATE INDEX  ON suetest.c5_f1 USING btree (emline_gflux_ivar_nii_6585);
+CREATE INDEX  ON suetest.c5_f1 USING btree (emline_gflux_ivar_oi_6302);
+CREATE INDEX  ON suetest.c5_f1 USING btree (emline_gflux_ivar_oiid_3728);
+CREATE INDEX  ON suetest.c5_f1 USING btree (emline_gflux_ivar_oiii_5008);
+CREATE INDEX  ON suetest.c5_f1 USING btree (emline_gflux_ivar_sii_6718);
+CREATE INDEX  ON suetest.c5_f1 USING btree (emline_gflux_ivar_sii_6732);
+CREATE INDEX ON suetest.c5_f1 USING btree (emline_gflux_nii_6585);
+CREATE INDEX ON suetest.c5_f1 USING btree (emline_gflux_oi_6302);
+CREATE INDEX ON suetest.c5_f1 USING btree (emline_gflux_oiid_3728);
+CREATE INDEX  ON suetest.c5_f1 USING btree (emline_gflux_oiii_5008);
+CREATE INDEX ON suetest.c5_f1 USING btree (emline_gflux_sii_6718);
+CREATE INDEX  ON suetest.c5_f1 USING btree (emline_gflux_sii_6732);
+CREATE INDEX  ON suetest.c5_f1 USING btree (file_pk);
+CREATE INDEX  ON suetest.c5_f1 USING btree (spaxel_index);
+CREATE INDEX ON suetest.c5_f1 USING btree (stellar_vel);
 
-create unique index c5_p2_pk on suetest.c5_p2 using btree(pk);
-CREATE INDEX ON suetest.c5_p2 USING btree (binid);
-CREATE INDEX ON suetest.c5_p2 USING btree (specindex_d4000);
-CREATE INDEX on suetest.c5_p2 USING btree (emline_gflux_ha_6564);
-CREATE INDEX  on suetest.c5_p2 USING btree (emline_gflux_hb_4862);
-CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_ha_6564);
-CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_hb_4862);
-CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_nii_6585);
-CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_oi_6302);
-CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_oiid_3728);
-CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_oiii_5008);
-CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_sii_6718);
-CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_sii_6732);
-CREATE INDEX ON suetest.c5_p2 USING btree (emline_gflux_nii_6585);
-CREATE INDEX ON suetest.c5_p2 USING btree (emline_gflux_oi_6302);
-CREATE INDEX ON suetest.c5_p2 USING btree (emline_gflux_oiid_3728);
-CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_oiii_5008);
-CREATE INDEX ON suetest.c5_p2 USING btree (emline_gflux_sii_6718);
-CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_sii_6732);
-CREATE INDEX  ON suetest.c5_p2 USING btree (file_pk);
-CREATE INDEX  ON suetest.c5_p2 USING btree (spaxel_index);
-CREATE INDEX ON suetest.c5_p2 USING btree (stellar_vel);
+create unique index c5_f2_pk on suetest.c5_f2 using btree(pk);
+CREATE INDEX ON suetest.c5_f2 USING btree (binid);
+CREATE INDEX ON suetest.c5_f2 USING btree (specindex_d4000);
+CREATE INDEX on suetest.c5_f2 USING btree (emline_gflux_ha_6564);
+CREATE INDEX  on suetest.c5_f2 USING btree (emline_gflux_hb_4862);
+CREATE INDEX  ON suetest.c5_f2 USING btree (emline_gflux_ivar_ha_6564);
+CREATE INDEX  ON suetest.c5_f2 USING btree (emline_gflux_ivar_hb_4862);
+CREATE INDEX  ON suetest.c5_f2 USING btree (emline_gflux_ivar_nii_6585);
+CREATE INDEX  ON suetest.c5_f2 USING btree (emline_gflux_ivar_oi_6302);
+CREATE INDEX  ON suetest.c5_f2 USING btree (emline_gflux_ivar_oiid_3728);
+CREATE INDEX  ON suetest.c5_f2 USING btree (emline_gflux_ivar_oiii_5008);
+CREATE INDEX  ON suetest.c5_f2 USING btree (emline_gflux_ivar_sii_6718);
+CREATE INDEX  ON suetest.c5_f2 USING btree (emline_gflux_ivar_sii_6732);
+CREATE INDEX ON suetest.c5_f2 USING btree (emline_gflux_nii_6585);
+CREATE INDEX ON suetest.c5_f2 USING btree (emline_gflux_oi_6302);
+CREATE INDEX ON suetest.c5_f2 USING btree (emline_gflux_oiid_3728);
+CREATE INDEX  ON suetest.c5_f2 USING btree (emline_gflux_oiii_5008);
+CREATE INDEX ON suetest.c5_f2 USING btree (emline_gflux_sii_6718);
+CREATE INDEX  ON suetest.c5_f2 USING btree (emline_gflux_sii_6732);
+CREATE INDEX  ON suetest.c5_f2 USING btree (file_pk);
+CREATE INDEX  ON suetest.c5_f2 USING btree (spaxel_index);
+CREATE INDEX ON suetest.c5_f2 USING btree (stellar_vel);
 
 
 select * from suetest.cleanspaxelprop5_pt limit 20;
@@ -464,6 +464,10 @@ where pk < 59841; -- 53524
 
 -- not totally even but close enough
 
+
+select * from suetest.c5_f2
+
+-- 0 rows what did i do wrong here
 
 
 

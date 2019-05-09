@@ -387,3 +387,105 @@ CREATE unlogged TABLE  suetest.cleanspaxelprop5_pt (
 	-- CONSTRAINT binid_fk FOREIGN KEY (binid_pk) REFERENCES binid(pk) ON UPDATE CASCADE ON DELETE CASCADE,
 	-- CONSTRAINT file_fk FOREIGN KEY (file_pk) REFERENCES file(pk)
 ) partition by range(pk);
+
+select min(binid_pk), max(binid_pk) from suetest.cleanspaxelprop5;  --1, 2978
+select min(file_pk), max(file_pk) from suetest.cleanspaxelprop5;  --29234, 51454
+select max(pk) from suetest.cleanspaxelprop5_2;
+
+-- drop table suetest.c5_p2
+
+create unlogged table suetest.c5_p2 partition of suetest.cleanspaxelprop5_pt
+for values from (0) to (57938101); -- looks like the min value is always contained in the partition
+
+create unlogged table suetest.c5_p2 partition of suetest.cleanspaxelprop5_pt
+for values from (57938101) to (77722993);  -- so the min value of p2 should == max value of p1
+
+insert into suetest.cleanspaxelprop5_pt
+select * from suetest.cleanspaxelprop5
+
+select * from suetest.cleanspaxelprop5_pt
+
+
+create unique index c5_p1_pk on suetest.c5_p1 using btree(pk);
+CREATE INDEX ON suetest.c5_p1 USING btree (binid);
+CREATE INDEX ON suetest.c5_p1 USING btree (specindex_d4000);
+CREATE INDEX on suetest.c5_p1 USING btree (emline_gflux_ha_6564);
+CREATE INDEX  on suetest.c5_p1 USING btree (emline_gflux_hb_4862);
+CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_ha_6564);
+CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_hb_4862);
+CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_nii_6585);
+CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_oi_6302);
+CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_oiid_3728);
+CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_oiii_5008);
+CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_sii_6718);
+CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_ivar_sii_6732);
+CREATE INDEX ON suetest.c5_p1 USING btree (emline_gflux_nii_6585);
+CREATE INDEX ON suetest.c5_p1 USING btree (emline_gflux_oi_6302);
+CREATE INDEX ON suetest.c5_p1 USING btree (emline_gflux_oiid_3728);
+CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_oiii_5008);
+CREATE INDEX ON suetest.c5_p1 USING btree (emline_gflux_sii_6718);
+CREATE INDEX  ON suetest.c5_p1 USING btree (emline_gflux_sii_6732);
+CREATE INDEX  ON suetest.c5_p1 USING btree (file_pk);
+CREATE INDEX  ON suetest.c5_p1 USING btree (spaxel_index);
+CREATE INDEX ON suetest.c5_p1 USING btree (stellar_vel);
+
+create unique index c5_p2_pk on suetest.c5_p2 using btree(pk);
+CREATE INDEX ON suetest.c5_p2 USING btree (binid);
+CREATE INDEX ON suetest.c5_p2 USING btree (specindex_d4000);
+CREATE INDEX on suetest.c5_p2 USING btree (emline_gflux_ha_6564);
+CREATE INDEX  on suetest.c5_p2 USING btree (emline_gflux_hb_4862);
+CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_ha_6564);
+CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_hb_4862);
+CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_nii_6585);
+CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_oi_6302);
+CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_oiid_3728);
+CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_oiii_5008);
+CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_sii_6718);
+CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_ivar_sii_6732);
+CREATE INDEX ON suetest.c5_p2 USING btree (emline_gflux_nii_6585);
+CREATE INDEX ON suetest.c5_p2 USING btree (emline_gflux_oi_6302);
+CREATE INDEX ON suetest.c5_p2 USING btree (emline_gflux_oiid_3728);
+CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_oiii_5008);
+CREATE INDEX ON suetest.c5_p2 USING btree (emline_gflux_sii_6718);
+CREATE INDEX  ON suetest.c5_p2 USING btree (emline_gflux_sii_6732);
+CREATE INDEX  ON suetest.c5_p2 USING btree (file_pk);
+CREATE INDEX  ON suetest.c5_p2 USING btree (spaxel_index);
+CREATE INDEX ON suetest.c5_p2 USING btree (stellar_vel);
+
+
+select * from suetest.cleanspaxelprop5_pt limit 20;
+
+
+select count(pk) from suetest.file
+where pk > 59841; -- 35527
+
+select count(pk) from suetest.file
+where pk < 59841; -- 53524
+
+-- not totally even but close enough
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
