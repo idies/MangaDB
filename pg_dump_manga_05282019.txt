@@ -1,0 +1,38 @@
+# pre-data section: create table statements, etc
+pg_dump -d manga --section=pre-data -t dapall -t file -t hdu -t hdu_to_header_value -t header_value -t modelcube -t cart_to_cube -t cube -t fits_header_value -t obsinfo -t wcs -t redcorr > pre-tables.sql
+
+pg_dump -d manga  --section=pre-data -t modelspaxel  > pre-modelspaxel.sql
+pg_dump -d manga  --section=pre-data -t spaxel	     > pre-spaxel.sql
+pg_dump -d manga  --section=pre-data -t spaxelprop8  > pre-spaxelprop8.sql
+pg_dump -d manga  --section=pre-data -t cleanspaxelprop8 > pre-cleanspaxelprop8.sql
+pg_dump -d manga  --section=pre-data -t rssfiber > pre-rssfiber.sql
+
+
+# data section: actual INSERT / COPY statements (compressed in binary format)
+pg_dump -d manga -Fd -j 8 --section=data -t dapall -t file -t hdu -t hdu_to_header_value -t header_value -t modelcube -t cart_to_cube -t cube -t fits_header_value -t obsinfo -t wcs -t redcorr -f data-tables
+# i think you could start each of these in a separate connection if you like
+pg_dump -d manga -Fd -j 8 --section=data -t modelspaxel  -f data-modelspaxel
+pg_dump -d manga -Fd -j 8  --section=data -t spaxel -f data-spaxel
+pg_dump -d manga -Fd -j 8  --section=data -t spaxelprop8  -f data-spaxelprop8
+pg_dump -d manga -Fd -j 8  --section=data -t cleanspaxelprop8 -f data-cleanspaxelprop8
+pg_dump -d manga -Fd -j 8  --section=data -t rssfiber -f data-rssfiber
+
+# post-data section: create index statements, etc
+pg_dump -d manga -Fd -j 8 -t dapall -t file -t hdu -t hdu_to_header_value -t header_value -t modelcube -t cart_to_cube -t cube -t fits_header_value -t obsinfo -t wcs -t redcorr -f post-tables
+pg_dump -Fd -j8 -d manga  --section=post-data -t modelspaxel -f  post-modelspaxel   
+pg_dump -Fd -j8 -d manga  --section=post-data -t spaxel -f post-spaxel
+pg_dump -Fd -j8 -d manga  --section=post-data -t spaxelprop8  -f post-spaxelprop8
+pg_dump -Fd -j8 -d manga  --section=post-data -t cleanspaxelprop8 -f post-cleanspaxelprop8
+pg_dump -Fd -j8 -d manga  --section=post-data -t rssfiber -f post-rssfiber
+
+
+
+
+
+
+
+
+
+
+
+
